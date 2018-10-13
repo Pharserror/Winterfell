@@ -1,35 +1,31 @@
-const webpack = require('webpack');
-const path    = require('path');
-
 module.exports = {
-  context   : __dirname + '/src',
-  entry     : {
-    javascript : './index.js'
-  },
-  module    : {
-    loaders : [{
-      test    : /\.js$/,
-      exclude : /node_modules/,
-      loaders : ['babel-loader'],
-    }],
+  context: __dirname,
+  entry: {
+    winterfell: [
+      './src/index.js'
+    ]
   },
   externals : {
-    'react'        : 'React',
-    'react/addons' : 'React'
+    'lodash': 'umd lodash',
+    'react': 'umd React'
   },
-  output    : {
-    libraryTarget : 'var',
-    library       : 'Winterfell',
-    filename      : 'winterfell.min.js',
-    path          : __dirname + '/dist'
+  mode: 'none',
+  module: {
+    rules: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+    }, {
+      test: /\.scss$/,
+      loaders: ['style-loader', 'css-loader', 'sass-loader']
+    }]
   },
-  plugins  : [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress : {
-        warnings : false
-      }
-    })
-  ]
+  output: {
+    libraryTarget: 'umd',
+    library: 'Winterfell',
+    filename: '[name].js',
+    path: __dirname + '/dist'
+  },
+  resolve: {
+    extensions: ['.js']
+  }
 };

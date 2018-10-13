@@ -1,79 +1,93 @@
-var React    = require('react');
-var ReactDOM = require('react-dom');
-var _        = require('lodash').noConflict();
+import chian         from 'lodash/chain';
+import extend        from 'lodash/extend';
+import find          from 'lodash/find';
+import isUndefined   from 'lodash/isUndefined';
+import React         from 'react';
+import QuestionPanel from './questionPanel';
 
-var QuestionPanel = require('./questionPanel');
-
-class Winterfell extends React.Component {
-
+export default class Winterfell extends React.Component {
   constructor(props) {
     super(props);
 
+    this.onAnswerChange = this.handleAnswerChange.bind(this);
+    this.onPanelBack = this.handleBackButtonClick.bind(this);
+    this.onSwitchPanel = this.handleSwitchPanel.bind(this);
+    this.onSubmit = this.handleSubmit.bind(this);
     this.formComponent = null;
-
     this.panelHistory = [];
+    let schema = extend(
+      {
+        classes: {},
+        formPanels: [],
+        questionPanels: [],
+        questionSets: [],
+      },
+      props.schema
+    );
 
-    var schema = _.extend({
-      classes        : {},
-      formPanels     : [],
-      questionPanels : [],
-      questionSets   : [],
-    }, props.schema);
+    schema.formPanels = schema.formPanels.sort((a, b) => a.index > b.index);
+    let panelId = (
+      isUndefined(props.panelId)
+        ? props.panelId
+        : schema.formPanels.length > 0
+          ? schema.formPanels[0].panelId
+          : undefined
+    );
 
-    schema.formPanels = schema.formPanels
-                              .sort((a, b) => a.index > b.index);
-
-    var panelId = (typeof props.panelId !== 'undefined'
-                     ? props.panelId
-                     : schema.formPanels.length > 0
-                         ? schema.formPanels[0].panelId
-                         : undefined);
-
-    var currentPanel = typeof schema !== 'undefined'
-                         && typeof schema.formPanels !== 'undefined'
-                         && typeof panelId !== 'undefined'
-                         ? _.find(schema.formPanels,
-                               panel => panel.panelId == panelId)
-                         : undefined;
+    let currentPanel = (
+      isUndefined(schema) && isUndefined(schema.formPanels) && isUndefined(panelId)
+        ? find(schema.formPanels, panel => panel.panelId === panelId)
+        : undefined
+    );
 
     if (!currentPanel) {
       throw new Error('Winterfell: Could not find initial panel and failed to render.');
     }
 
     this.state = {
-      schema          : schema,
-      currentPanel    : currentPanel,
-      action          : props.action,
-      questionAnswers : props.questionAnswers
+      schema: schema,
+      currentPanel: currentPanel,
+      action: props.action,
+      questionAnswers: props.questionAnswers
     };
+  }
+
+  componentDidMount() {
+    this.panelHistory.push(this.state.currentPanel.panelId);
+    this.props.onRender();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      action          : nextProps.action,
-      schema          : nextProps.schema,
-      questionAnswers : nextProps.questionAnswers
+      action: nextProps.action,
+      schema: nextProps.schema,
+      questionAnswers: nextProps.questionAnswers
     });
   }
 
   handleAnswerChange(questionId, questionAnswer) {
-    var questionAnswers = _.chain(this.state.questionAnswers)
-                           .set(questionId, questionAnswer)
-                           .value();
+    var questionAnswers = (
+      chain(this.state.questionAnswers)
+        .set(questionId, questionAnswer)
+        .value()
+    );
 
-    this.setState({
-      questionAnswers : questionAnswers,
-    }, this.props.onUpdate.bind(null, questionAnswers));
+    this.setState(
+      { questionAnswers: questionAnswers },
+      this.props.onUpdate.bind(null, questionAnswers)
+    );
   }
 
   handleSwitchPanel(panelId, preventHistory) {
-    var panel = _.find(this.props.schema.formPanels, {
-      panelId : panelId
-    });
+    let panel = find(
+      this.props.schema.formPanels,
+      { panelId }
+    );
 
     if (!panel) {
-      throw new Error('Winterfell: Tried to switch to panel "'
-                      + panelId + '", which does not exist.');
+      throw new Error(
+        `Winterfell: Tried to switch to panel ${panelId} which does not exist.`
+      );
     }
 
     if (!preventHistory) {
@@ -81,7 +95,7 @@ class Winterfell extends React.Component {
     }
 
     this.setState({
-      currentPanel : panel
+      currentPanel: panel
     }, this.props.onSwitchPanel.bind(null, panel));
   }
 
@@ -89,7 +103,9 @@ class Winterfell extends React.Component {
     this.panelHistory.pop();
 
     this.handleSwitchPanel.call(
-      this, this.panelHistory[this.panelHistory.length - 1], true
+      this,
+      this.panelHistory[this.panelHistory.length - 1],
+      true
     );
   }
 
@@ -99,88 +115,79 @@ class Winterfell extends React.Component {
       return;
     }
 
-    /*
-     * If we are not disabling the functionality of the form,
+    /* If we are not disabling the functionality of the form,
      * we need to set the action provided in the form, then submit.
      */
-    this.setState({
-      action : action
-    }, () => {
-      if (!this.formComponent) {
-        return;
+    this.setState(
+      { action },
+      () => {
+        if (!this.formComponent) { return; }
+        this.formComponent.submit();
       }
-
-      this.formComponent.submit();
-    });
+    );
   }
 
   render() {
-    var currentPanel = _.find(this.state.schema.questionPanels,
-                          panel => panel.panelId == this.state.currentPanel.panelId);
+    let currentPanel = find(
+      this.state.schema.questionPanels,
+      panel => panel.panelId == this.state.currentPanel.panelId
+    );
 
     return (
-      <form method={this.props.method}
-            encType={this.props.encType}
-            action={this.state.action}
-            ref={ref => this.formComponent = ref}
-            className={this.state.schema.classes.form}>
+      <form
+        method={this.props.method}
+        encType={this.props.encType}
+        action={this.state.action}
+        ref={ref => this.formComponent = ref}
+        className={this.state.schema.classes.form}
+      >
         <div className={this.state.schema.classes.questionPanels}>
-          <QuestionPanel schema={this.state.schema}
-                         classes={this.state.schema.classes}
-                         panelId={currentPanel.panelId}
-                         panelIndex={currentPanel.panelIndex}
-                         panelHeader={currentPanel.panelHeader}
-                         panelText={currentPanel.panelText}
-                         action={currentPanel.action}
-                         button={currentPanel.button}
-                         backButton={currentPanel.backButton}
-                         questionSets={currentPanel.questionSets}
-                         questionAnswers={this.state.questionAnswers}
-                         panelHistory={this.panelHistory}
-                         renderError={this.props.renderError}
-                         renderRequiredAsterisk={this.props.renderRequiredAsterisk}
-                         onAnswerChange={this.handleAnswerChange.bind(this)}
-                         onPanelBack={this.handleBackButtonClick.bind(this)}
-                         onSwitchPanel={this.handleSwitchPanel.bind(this)}
-                         onSubmit={this.handleSubmit.bind(this)} />
+          <QuestionPanel
+            schema={this.state.schema}
+            classes={this.state.schema.classes}
+            panelId={currentPanel.panelId}
+            panelIndex={currentPanel.panelIndex}
+            panelHeader={currentPanel.panelHeader}
+            panelText={currentPanel.panelText}
+            action={currentPanel.action}
+            button={currentPanel.button}
+            backButton={currentPanel.backButton}
+            questionSets={currentPanel.questionSets}
+            questionAnswers={this.state.questionAnswers}
+            panelHistory={this.panelHistory}
+            renderError={this.props.renderError}
+            renderRequiredAsterisk={this.props.renderRequiredAsterisk}
+            onAnswerChange={this.handleAnswerChange}
+            onPanelBack={this.handleBackButtonClick}
+            onSwitchPanel={this.handleSwitchPanel}
+            onSubmit={this.handleSubmit}
+          />
         </div>
       </form>
     );
   }
-
-  componentDidMount() {
-    this.panelHistory.push(this.state.currentPanel.panelId);
-    this.props.onRender();
-  }
-
 };
 
-Winterfell.inputTypes    = require('./inputTypes');
+Winterfell.inputTypes = require('./inputTypes');
 Winterfell.errorMessages = require('./lib/errors');
-Winterfell.validation    = require('./lib/validation');
-
-Winterfell.addInputType  = Winterfell.inputTypes.addInputType;
+Winterfell.validation = require('./lib/validation');
+Winterfell.addInputType = Winterfell.inputTypes.addInputType;
 Winterfell.addInputTypes = Winterfell.inputTypes.addInputTypes;
-
-Winterfell.addErrorMessage  = Winterfell.errorMessages.addErrorMessage;
+Winterfell.addErrorMessage = Winterfell.errorMessages.addErrorMessage;
 Winterfell.addErrorMessages = Winterfell.errorMessages.addErrorMessages;
-
-Winterfell.addValidationMethod  = Winterfell.validation.addValidationMethod;
+Winterfell.addValidationMethod = Winterfell.validation.addValidationMethod;
 Winterfell.addValidationMethods = Winterfell.validation.addValidationMethods;
-
 Winterfell.defaultProps = {
-  questionAnswers        : {},
-  encType                : 'application/x-www-form-urlencoded',
-  method                 : 'POST',
-  action                 : '',
-  panelId                : undefined,
-  disableSubmit          : false,
-  renderError            : undefined,
-  renderRequiredAsterisk : undefined,
-  onSubmit               : () => {},
-  onUpdate               : () => {},
-  onSwitchPanel          : () => {},
-  onRender               : () => {}
+  questionAnswers: {},
+  encType: 'application/x-www-form-urlencoded',
+  method: 'POST',
+  action: '',
+  panelId: undefined,
+  disableSubmit: false,
+  renderError: undefined,
+  renderRequiredAsterisk: undefined,
+  onSubmit: () => {},
+  onUpdate: () => {},
+  onSwitchPanel: () => {},
+  onRender: () => {}
 };
-
-module.exports = Winterfell;
