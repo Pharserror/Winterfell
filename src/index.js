@@ -1,11 +1,14 @@
-import chian         from 'lodash/chain';
-import extend        from 'lodash/extend';
-import find          from 'lodash/find';
-import isUndefined   from 'lodash/isUndefined';
-import React         from 'react';
-import QuestionPanel from './questionPanel';
+import chain                from 'lodash/chain';
+import extend               from 'lodash/extend';
+import find                 from 'lodash/find';
+import isUndefined          from 'lodash/isUndefined';
+import React, { Component } from 'react';
+import errorMessages        from './lib/errors';
+import inputTypes           from './inputTypes';
+import QuestionPanel        from './questionPanel';
+import validation           from './lib/validation';
 
-export default class Winterfell extends React.Component {
+export default class Winterfell extends Component {
   constructor(props) {
     super(props);
 
@@ -79,24 +82,25 @@ export default class Winterfell extends React.Component {
   }
 
   handleSwitchPanel(panelId, preventHistory) {
-    let panel = find(
+    const currentPanel = find(
       this.props.schema.formPanels,
       { panelId }
     );
 
-    if (!panel) {
+    if (!currentPanel) {
       throw new Error(
         `Winterfell: Tried to switch to panel ${panelId} which does not exist.`
       );
     }
 
     if (!preventHistory) {
-      this.panelHistory.push(panel.panelId);
+      this.panelHistory.push(currentPanel.panelId);
     }
 
-    this.setState({
-      currentPanel: panel
-    }, this.props.onSwitchPanel.bind(null, panel));
+    this.setState(
+      { currentPanel },
+      this.props.onSwitchPanel.bind(null, currentPanel)
+    );
   }
 
   handleBackButtonClick() {
@@ -168,9 +172,9 @@ export default class Winterfell extends React.Component {
   }
 };
 
-Winterfell.inputTypes = require('./inputTypes');
-Winterfell.errorMessages = require('./lib/errors');
-Winterfell.validation = require('./lib/validation');
+Winterfell.inputTypes = inputTypes;
+Winterfell.errorMessages = errorMessages;
+Winterfell.validation = validation;
 Winterfell.addInputType = Winterfell.inputTypes.addInputType;
 Winterfell.addInputTypes = Winterfell.inputTypes.addInputTypes;
 Winterfell.addErrorMessage = Winterfell.errorMessages.addErrorMessage;
@@ -178,16 +182,16 @@ Winterfell.addErrorMessages = Winterfell.errorMessages.addErrorMessages;
 Winterfell.addValidationMethod = Winterfell.validation.addValidationMethod;
 Winterfell.addValidationMethods = Winterfell.validation.addValidationMethods;
 Winterfell.defaultProps = {
-  questionAnswers: {},
-  encType: 'application/x-www-form-urlencoded',
-  method: 'POST',
-  action: '',
-  panelId: undefined,
-  disableSubmit: false,
-  renderError: undefined,
+  questionAnswers:        {},
+  encType:                'application/x-www-form-urlencoded',
+  method:                 'POST',
+  action:                 '',
+  panelId:                undefined,
+  disableSubmit:          false,
+  renderError:            undefined,
   renderRequiredAsterisk: undefined,
-  onSubmit: () => {},
-  onUpdate: () => {},
-  onSwitchPanel: () => {},
-  onRender: () => {}
+  onSubmit:               () => {},
+  onUpdate:               () => {},
+  onSwitchPanel:          () => {},
+  onRender:               () => {}
 };

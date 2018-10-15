@@ -1,48 +1,52 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-class TextareaInput extends React.Component {
-
+export default class TextareaInput extends Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.state = {
       value : this.props.value
     };
   }
 
-  handleChange(e) {
-    this.setState({
-      value : e.target.value
-    }, this.props.onChange.bind(null, e.target.value));
+  handleChange(event) {
+    this.setState(
+      { value : event.target.value },
+      this.props.onChange.bind(null, event.target.value)
+    );
+  }
+
+  onBlur(event) {
+    this.props.onBlur(this.state.value);
   }
 
   render() {
     return (
-      <textarea type="text"
-                name={this.props.name}
-                id={this.props.id}
-                aria-labelledby={this.props.labelId}
-                className={this.props.classes.input}
-                placeholder={this.props.placeholder}
-                value={this.state.value}
-                required={this.props.required
-                            ? 'required'
-                            : undefined}
-                onChange={this.handleChange.bind(this)}
-                onBlur={this.props.onBlur.bind(null, this.state.value)} />
+      <textarea
+        aria-labelledby={this.props.labelId}
+        className={this.props.classes.input}
+        id={this.props.id}
+        name={this.props.name}
+        onChange={this.handleChange}
+        onBlur={this.onBlur}
+        placeholder={this.props.placeholder}
+        required={this.props.required ? 'required' : undefined}
+        type="text"
+        value={this.state.value}
+      />
     );
   }
 
 };
 
 TextareaInput.defaultProps = {
-  classes     : {},
-  name        : '',
-  id          : '',
-  value       : '',
-  placeholder : '',
-  onChange    : () => {},
-  onBlur      : () => {}
+  classes:     {},
+  id:          '',
+  name:        '',
+  onBlur:      () => {},
+  onChange:    () => {},
+  placeholder: '',
+  value:       ''
 };
-
-module.exports = TextareaInput;

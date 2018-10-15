@@ -1,7 +1,6 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-class CheckboxInput extends React.Component {
-
+export default class CheckboxInput extends Component {
   constructor(props) {
     super(props);
 
@@ -52,15 +51,15 @@ class CheckboxInput extends React.Component {
           id={this.props.labelId}
         >
           <input
-            type="checkbox"
-            name={this.props.name}
             aria-labelledby={this.props.labelId}
             className={this.props.classes.checkbox}
             defaultChecked={this.state.checked}
-            value={this.getValue()}
-            required={this.props.required ? 'required' : undefined}
-            onChange={this.handleChange}
+            name={this.props.name}
             onBlur={this.onBlur}
+            onChange={this.handleChange}
+            required={this.props.required ? 'required' : undefined}
+            type="checkbox"
+            value={this.getValue()}
           />
           {this.props.text}
         </label>
@@ -71,13 +70,11 @@ class CheckboxInput extends React.Component {
 };
 
 CheckboxInput.defaultProps = {
-  text     : '',
+  text:           '',
   defaultChecked: false,
-  classes  : {},
-  name     : '',
-  value    : '',
-  onChange : () => {},
-  onBlur   : () => {}
+  classes:        {},
+  name:           '',
+  value:          '',
+  onChange:       () => {},
+  onBlur:         () => {}
 };
-
-module.exports = CheckboxInput;

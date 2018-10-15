@@ -1,7 +1,6 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-class HiddenInput extends React.Component {
-
+export default class HiddenInput extends Component {
   constructor(props) {
     super(props);
 
@@ -12,17 +11,16 @@ class HiddenInput extends React.Component {
 
   render() {
     return (
-      <input type="hidden"
-             name={this.props.name}
-             value={this.state.value}/>
+      <input
+        name={this.props.name}
+        type="hidden"
+        value={this.state.value}
+      />
     );
   }
-
 };
 
 HiddenInput.defaultProps = {
-  name  : '',
-  value : ''
+  name:  '',
+  value: ''
 };
-
-module.exports = HiddenInput;

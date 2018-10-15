@@ -1,67 +1,69 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-class SelectInput extends React.Component {
-
+export default class SelectInput extends Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.options = this.options.bind(this);
     this.state = {
       value : this.props.value
     };
   }
 
-  handleChange(e) {
-    this.setState({
-      value : e.target.value
-    }, this.props.onChange.bind(null, e.target.value));
+  handleChange(event) {
+    this.setState(
+      { value : event.target.value },
+      this.props.onChange.bind(null, event.target.value)
+    );
+  }
+
+  onBlur(event) {
+    this.props.onBlur(this.state.value);
+  }
+
+  options() {
+    return (
+      this.props.options.map(choice => (
+        <option key={choice.value} value={choice.value}>
+          {choice.text}
+        </option>
+      ))
+    );
   }
 
   render() {
-    var options = this.props.options.map(opt =>
-      <option key={opt.value}
-              value={opt.value}>
-        {opt.text}
-      </option>
-    );
-
     return (
-      <select name={this.props.name}
-              id={this.props.id}
-              className={this.props.classes.select}
-              value={this.state.value}
-              ref="select"
-              required={this.props.required
-                          ? 'required'
-                          : undefined}
-              onChange={this.handleChange.bind(this)}
-              onBlur={this.props.onBlur.bind(null, this.state.value)}>
-        {options}
+      <select
+        className={this.props.classes.select}
+        id={this.props.id}
+        name={this.props.name}
+        onBlur={this.onBlur}
+        onChange={this.handleChange}
+        ref="select"
+        required={this.props.required ? 'required' : undefined}
+        value={this.state.value}
+      >
+        {this.options()}
       </select>
     );
   }
 
   componentDidMount() {
-    /*
-     * Selects automatically pick the first item, so
+    /* Selects automatically pick the first item, so
      * make sure we set it.
      */
-    this.handleChange({
-      target : {
-        value : this.refs.select.value
-      }
-    });
+    this.handleChange({ target : { value : this.refs.select.value } });
   }
-
 };
 
 SelectInput.defaultProps = {
-  classes     : {},
-  name        : '',
-  id          : '',
-  value       : '',
-  options     : [],
-  onChange    : () => {},
-  onBlur      : () => {}
+  classes:  {},
+  id:       '',
+  name:     '',
+  onBlur:   () => {},
+  onChange: () => {},
+  options:  [],
+  value:    ''
 };
-
-module.exports = SelectInput;

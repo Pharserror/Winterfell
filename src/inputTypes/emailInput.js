@@ -1,50 +1,54 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-class EmailInput extends React.Component {
-
+export default class EmailInput extends Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.state = {
       value : this.props.value
     };
   }
 
-  handleChange(e) {
-    this.setState({
-      value : e.target.value
-    }, this.props.onChange.bind(null, e.target.value));
+  handleChange(event) {
+    this.setState(
+      { value : event.target.value },
+      this.props.onChange.bind(null, event.target.value)
+    );
+  }
+
+  onBlur(event) {
+    this.props.onBlur(this.state.value);
   }
 
   render() {
     return (
-      <input type="email"
-             name={this.props.name}
-             id={this.props.id}
-             aria-labelledby={this.props.labelId}
-             className={this.props.classes.input}
-             placeholder={this.props.placeholder}
-             value={this.state.value}
-             required={this.props.required
-                         ? 'required'
-                         : undefined}
-             onChange={this.handleChange.bind(this)}
-             onBlur={this.props.onBlur.bind(null, this.state.value)}
-             onKeyDown={this.props.onKeyDown} />
+      <input
+        aria-labelledby={this.props.labelId}
+        className={this.props.classes.input}
+        id={this.props.id}
+        name={this.props.name}
+        onBlur={this.onBlur}
+        onChange={this.handleChange}
+        onKeyDown={this.props.onKeyDown}
+        placeholder={this.props.placeholder}
+        required={this.props.required ? 'required' : undefined}
+        type="email"
+        value={this.state.value}
+      />
     );
   }
 
 };
 
 EmailInput.defaultProps = {
-  classes     : {},
-  name        : '',
-  id          : '',
-  value       : '',
-  placeholder : '',
-  onChange    : () => {},
-  onBlur      : () => {},
-  onKeyDown   : () => {}
+  classes:     {},
+  name:        '',
+  id:          '',
+  value:       '',
+  placeholder: '',
+  onChange:    () => {},
+  onBlur:      () => {},
+  onKeyDown:   () => {}
 };
-
-module.exports = EmailInput;

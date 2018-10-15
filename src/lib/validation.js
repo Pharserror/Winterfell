@@ -1,29 +1,24 @@
-var _            = require('lodash').noConflict();
-var Validator    = require('validator');
-var StringParser = require('./stringParser');
+import every        from 'lodash/every';
+import isEmpty      from 'lodash/isEmpty';
+import isFunction   from 'lodash/isFunction';
+import isObject     from 'lodash/isObject';
+import isString     from 'lodash/isString';
+import isUndefined  from 'lodash/isUndefined';
+import Validator    from 'validator';
+import stringParser from './stringParser';
 
-var extraValidators = {
-
+const extraValidators = {
   /*
    * isAccepted Validation Mehod
    */
-  isAccepted : (value, expected) => {
-    return value == expected;
-  },
+  isAccepted: (value, expected) => value === expected,
 
   /*
    * isAllIn Validation Method
    */
-  isAllIn : (value, options) => {
-    if (!value) {
-      return false;
-    }
-
-    return _.every(value, (item) => {
-      return options.indexOf(item) > -1;
-    });
-  }
-
+  isAllIn: (value, options) => (
+    !value ? false : every(value, item => options.indexOf(item) > -1)
+  )
 };
 
 /**
@@ -33,35 +28,36 @@ var extraValidators = {
  * @param  object  validationItem Rule set for validator
  * @return boolean                Valid?
  */
-var validateAnswer = (value, validationItem, questionAnswers) => {
-  var validationMethod = typeof extraValidators[validationItem.type] !== 'undefined'
-                           ? extraValidators[validationItem.type]
-                           : Validator.hasOwnProperty(validationItem.type)
-                               && typeof Validator[validationItem.type] === 'function'
-                               ? Validator[validationItem.type]
-                               : undefined;
+function validateAnswer(value, validationItem, questionAnswers) {
+  const validationMethod = (
+    !isUndefined(extraValidators[validationItem.type])
+    ? extraValidators[validationItem.type]
+    : (
+      Validator.hasOwnProperty(validationItem.type) &&
+      isFunction(Validator[validationItem.type])
+    ) ? Validator[validationItem.type] : undefined
+  );
 
   if (!validationMethod) {
-    throw new Error('Winterfell: Attempted to validate for undefined method "'
-                    + validationItem.type + '"');
+    throw new Error(
+      `Winterfell: Attempted to validate for undefined method "${validationItem.type}"`
+    );
   }
 
   /*
    * Clone the validation parameters so it doesn't effect the
    * parameters elsewhere by reference.
    */
-  var validationParameters = (validationItem.params || []).slice(0);
+  let validationParameters = (validationItem.params || []).slice(0);
 
   /*
    * Run the parameters through the stringParser with the
    * questionAnswers so that it sets the questionAnswer
    * as the parameter.
    */
-  validationParameters = validationParameters.map(p => {
-    return typeof p === 'string'
-             ? StringParser(p, questionAnswers)
-             : p;
-  });
+  validationParameters = validationParameters.map(parameter => (
+    isString(parameter) ? stringParser(parameter, questionAnswers) : parameter
+  ));
 
   /*
    * Push the value of the question we're validating to
@@ -85,37 +81,37 @@ var validateAnswer = (value, validationItem, questionAnswers) => {
  * @param  array  activeQuestions
  * @return array                  All active questions
  */
-var getActiveQuestions = (questions, questionAnswers, activeQuestions) => {
+function getActiveQuestions(questions, questionAnswers, activeQuestions) {
   activeQuestions = activeQuestions || [];
 
   questions
-    .forEach(question => {
-      activeQuestions.push({
-        questionId  : question.questionId,
-        validations : question.validations
-      });
-
-      if (typeof question.input.options === 'undefined'
-          || question.input.options.length === 0) {
-        return;
-      }
-
-      question
-        .input
-        .options
-        .forEach(option => {
-          if (typeof option.conditionalQuestions === 'undefined'
-               || option.conditionalQuestions.length == 0
-               || questionAnswers[question.questionId] != option.value) {
-            return;
-          }
-
-          activeQuestions = getActiveQuestions(option.conditionalQuestions,
-                                               questionAnswers,
-                                               activeQuestions);
-        });
-
+  .forEach(question => {
+    activeQuestions.push({
+      questionId:  question.questionId,
+      validations: question.validations
     });
+
+    if (isUndefined(question.input.options) || isEmpty(question.input.options)) {
+      return;
+    }
+
+    question
+    .input
+    .options
+    .forEach(option => {
+      if (
+        isUndefined(option.conditionalQuestions) ||
+        isEmpty(option.conditionalQuestions) ||
+        questionAnswers[question.questionId] !== option.value
+      ) { return; }
+
+      activeQuestions = getActiveQuestions(
+        option.conditionalQuestions,
+        questionAnswers,
+        activeQuestions
+      );
+    });
+  });
 
   return activeQuestions;
 };
@@ -127,13 +123,14 @@ var getActiveQuestions = (questions, questionAnswers, activeQuestions) => {
  * @param  object questionAnswers Current answers for questions
  * @return array                  All active questions
  */
-var getActiveQuestionsFromQuestionSets = (questionSets, questionAnswers) => {
-  var questionsToCheck = [];
+function getActiveQuestionsFromQuestionSets(questionSets, questionAnswers) {
+  const questionsToCheck = [];
 
   questionSets
-    .forEach(questionSet => Array.prototype.push.apply(
-      questionsToCheck, getActiveQuestions(questionSet.questions, questionAnswers)
-    ));
+  .forEach(questionSet => Array.prototype.push.apply(
+    questionsToCheck,
+    getActiveQuestions(questionSet.questions, questionAnswers)
+  ));
 
   return questionsToCheck;
 };
@@ -145,12 +142,14 @@ var getActiveQuestionsFromQuestionSets = (questionSets, questionAnswers) => {
  * @param  object questionAnswers  Current answers for questions
  * @return object                  Set of questions and their invalidations
  */
-var getQuestionPanelInvalidQuestions = (questionSets, questionAnswers) => {
-  var questionsToCheck = getActiveQuestionsFromQuestionSets(questionSets, questionAnswers)
-                           .filter(question => {
-                             return question.validations instanceof Array
-                                      && question.validations.length > 0;
-                           });
+function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
+  const questionsToCheck = (
+    getActiveQuestionsFromQuestionSets(questionSets, questionAnswers)
+    .filter(question => (
+      question.validations instanceof Array
+      && question.validations.length > 0
+    ))
+  );
 
   /*
    * Now we run validations for the questions
@@ -160,28 +159,30 @@ var getQuestionPanelInvalidQuestions = (questionSets, questionAnswers) => {
    * then run the question and answer through
    * the validation method required.
    */
-  var errors = {};
+  const errors = {};
+
   questionsToCheck
-    .forEach(({questionId, validations}) =>
-      [].forEach.bind(validations, validation => {
-        var valid = validateAnswer(questionAnswers[questionId],
-                                   validation,
-                                   questionAnswers);
-        if (valid) {
-          return;
-        }
+  .forEach(({questionId, validations}) =>
+    [].forEach.bind(validations, validation => {
+      const valid = validateAnswer(
+        questionAnswers[questionId],
+        validation,
+        questionAnswers
+      );
 
-        /*
-         * If we got here, the validation failed. Add
-         * an validation error and continue to the next!
-         */
-        if (typeof errors[questionId] === 'undefined') {
-          errors[questionId] = [];
-        }
+      if (valid) { return; }
 
-        errors[questionId].push(validation);
+      /*
+       * If we got here, the validation failed. Add
+       * an validation error and continue to the next!
+       */
+      if (isUndefined(errors[questionId])) {
+        errors[questionId] = [];
       }
-    )());
+
+      errors[questionId].push(validation);
+    }
+  )());
 
   return errors;
 };
@@ -192,15 +193,17 @@ var getQuestionPanelInvalidQuestions = (questionSets, questionAnswers) => {
  * @param  string   name   Name of validation method
  * @param  function method Validation method
  */
-var addValidationMethod = (name, method) => {
-  if (typeof name !== 'string') {
-    throw new Error('Winterfell: First parameter of addValidationMethod '
-                    + 'must be of type string');
+function addValidationMethod(name, method) {
+  if (!isString(name)) {
+    throw new Error(
+      'Winterfell: First parameter of addValidationMethod must be of type string'
+    );
   }
 
-  if (typeof method !== 'function') {
-    throw new Error('Winterfell: Second parameter of addValidationMethod '
-                    + 'must be of type function');
+  if (!isFunction(method)) {
+    throw new Error(
+      'Winterfell: Second parameter of addValidationMethod must be of type function'
+    );
   }
 
   extraValidators[name] = method;
@@ -211,22 +214,25 @@ var addValidationMethod = (name, method) => {
  *
  * @param  array methods Methods to add. name => func
  */
-var addValidationMethods = (methods) => {
-  if (typeof methods !== 'object') {
-    throw new Error('Winterfell: First parameter of addValidationMethods '
-                    + 'must be of type object');
+function addValidationMethods(methods) {
+  if (!isObject(methods)) {
+    throw new Error(
+      'Winterfell: First parameter of addValidationMethods must be of type object'
+    );
   }
 
-  for (var methodName in methods) {
+  for (let methodName in methods) {
     addValidationMethod(methodName, methods[methodName]);
   }
 };
 
-module.exports = {
-  validateAnswer                     : validateAnswer,
-  getActiveQuestions                 : getActiveQuestions,
-  getActiveQuestionsFromQuestionSets : getActiveQuestionsFromQuestionSets,
-  getQuestionPanelInvalidQuestions   : getQuestionPanelInvalidQuestions,
-  addValidationMethod                : addValidationMethod,
-  addValidationMethods               : addValidationMethods
+const actions = {
+  validateAnswer,
+  getActiveQuestions,
+  getActiveQuestionsFromQuestionSets,
+  getQuestionPanelInvalidQuestions,
+  addValidationMethod,
+  addValidationMethods
 };
+
+export default actions;
