@@ -1,6 +1,7 @@
 import chain                from 'lodash/chain';
 import extend               from 'lodash/extend';
 import find                 from 'lodash/find';
+import isEmpty              from 'lodash/isEmpty';
 import isUndefined          from 'lodash/isUndefined';
 import React, { Component } from 'react';
 import errorMessages        from './lib/errors';
@@ -30,11 +31,11 @@ export default class Winterfell extends Component {
 
     schema.formPanels = schema.formPanels.sort((a, b) => a.index > b.index);
     let panelId = (
-      isUndefined(props.panelId)
-        ? props.panelId
-        : schema.formPanels.length > 0
-          ? schema.formPanels[0].panelId
-          : undefined
+      !isUndefined(props.panelId)
+      ? props.panelId
+      : !isEmpty(schema.formPanels)
+      ? schema.formPanels[0].panelId
+      : undefined
     );
 
     let currentPanel = (
