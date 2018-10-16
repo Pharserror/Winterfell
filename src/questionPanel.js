@@ -222,7 +222,7 @@ export default class QuestionPanel extends Component {
           ) : null
         }
         <div className={this.props.classes.questionSets}>
-          {this.questionSets}
+          {this.questionSets()}
         </div>
         <div className={this.props.classes.buttonBar}>
           {
@@ -233,7 +233,7 @@ export default class QuestionPanel extends Component {
                 onClick={this.handleBackButtonClick}
                 className={this.props.classes.backButton}
               />
-            ) : undefined
+            ) : null
           }
           {
             !this.props.button.disabled
@@ -243,7 +243,7 @@ export default class QuestionPanel extends Component {
                 onClick={this.handleMainButtonClick}
                 className={this.props.classes.controlButton}
               />
-            ) : undefined
+            ) : null
           }
         </div>
       </div>

@@ -7119,17 +7119,17 @@ function (_Component) {
         className: this.props.classes.questionPanelText
       }, this.props.panelText) : null) : null, _react.default.createElement("div", {
         className: this.props.classes.questionSets
-      }, this.questionSets), _react.default.createElement("div", {
+      }, this.questionSets()), _react.default.createElement("div", {
         className: this.props.classes.buttonBar
       }, !(0, _isEmpty.default)(this.props.panelHistory) && !this.props.backButton.disabled ? _react.default.createElement(_button.default, {
         text: this.props.backButton.text || 'Back',
         onClick: this.handleBackButtonClick,
         className: this.props.classes.backButton
-      }) : undefined, !this.props.button.disabled ? _react.default.createElement(_button.default, {
+      }) : null, !this.props.button.disabled ? _react.default.createElement(_button.default, {
         text: this.props.button.text,
         onClick: this.handleMainButtonClick,
         className: this.props.classes.controlButton
-      }) : undefined));
+      }) : null));
     }
   }]);
 
