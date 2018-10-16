@@ -38,25 +38,25 @@ export default class QuestionSet extends Component {
     return (
       <div className={this.props.classes.questionSet}>
         {
-          isUndefined(this.props.questionSetHeader) ||
-          isUndefined(this.props.questionSetText)
+          !isUndefined(this.props.questionSetHeader) ||
+          !isUndefined(this.props.questionSetText)
           ? (
             <div className={this.props.classes.questionSetHeaderContainer}>
               {
-                isUndefined(this.props.questionSetHeader)
-                  ? (
-                    <h4 className={this.props.classes.questionSetHeader}>
-                      {this.props.questionSetHeader}
-                    </h4>
-                  ) : null
+                !isUndefined(this.props.questionSetHeader)
+                ? (
+                  <h4 className={this.props.classes.questionSetHeader}>
+                    {this.props.questionSetHeader}
+                  </h4>
+                ) : null
               }
               {
-                isUndefined(this.props.questionSetText)
-                  ? (
-                    <p className={this.props.classes.questionSetText}>
-                      {this.props.questionSetText}
-                    </p>
-                  ) : null
+                !isUndefined(this.props.questionSetText)
+                ? (
+                  <p className={this.props.classes.questionSetText}>
+                    {this.props.questionSetText}
+                  </p>
+                ) : null
               }
             </div>
           ) : null

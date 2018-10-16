@@ -182,7 +182,7 @@ function (_Component) {
       return a.index > b.index;
     });
     var panelId = !(0, _isUndefined.default)(props.panelId) ? props.panelId : !(0, _isEmpty.default)(schema.formPanels) ? schema.formPanels[0].panelId : undefined;
-    var currentPanel = (0, _isUndefined.default)(schema) && (0, _isUndefined.default)(schema.formPanels) && (0, _isUndefined.default)(panelId) ? (0, _find.default)(schema.formPanels, function (panel) {
+    var currentPanel = !(0, _isUndefined.default)(schema) && !(0, _isUndefined.default)(schema.formPanels) && !(0, _isUndefined.default)(panelId) ? (0, _find.default)(schema.formPanels, function (panel) {
       return panel.panelId === panelId;
     }) : undefined;
 
@@ -9457,11 +9457,11 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: this.props.classes.questionSet
-      }, (0, _isUndefined.default)(this.props.questionSetHeader) || (0, _isUndefined.default)(this.props.questionSetText) ? _react.default.createElement("div", {
+      }, !(0, _isUndefined.default)(this.props.questionSetHeader) || !(0, _isUndefined.default)(this.props.questionSetText) ? _react.default.createElement("div", {
         className: this.props.classes.questionSetHeaderContainer
-      }, (0, _isUndefined.default)(this.props.questionSetHeader) ? _react.default.createElement("h4", {
+      }, !(0, _isUndefined.default)(this.props.questionSetHeader) ? _react.default.createElement("h4", {
         className: this.props.classes.questionSetHeader
-      }, this.props.questionSetHeader) : null, (0, _isUndefined.default)(this.props.questionSetText) ? _react.default.createElement("p", {
+      }, this.props.questionSetHeader) : null, !(0, _isUndefined.default)(this.props.questionSetText) ? _react.default.createElement("p", {
         className: this.props.classes.questionSetText
       }, this.props.questionSetText) : null) : null, questions);
     }

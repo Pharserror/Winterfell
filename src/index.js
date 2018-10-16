@@ -39,7 +39,7 @@ export default class Winterfell extends Component {
     );
 
     let currentPanel = (
-      isUndefined(schema) && isUndefined(schema.formPanels) && isUndefined(panelId)
+      !isUndefined(schema) && !isUndefined(schema.formPanels) && !isUndefined(panelId)
         ? find(schema.formPanels, panel => panel.panelId === panelId)
         : undefined
     );
