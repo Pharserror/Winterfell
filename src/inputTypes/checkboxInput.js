@@ -21,7 +21,7 @@ export default class CheckboxInput extends Component {
   getValue() {
     return (
       this.props.boolean
-        ? this.state.checked
+        ? `${this.state.checked}`
         : this.state.checked
           ? this.props.value
           : undefined

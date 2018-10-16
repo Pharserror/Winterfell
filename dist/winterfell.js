@@ -6467,7 +6467,7 @@ function (_Component) {
   }, {
     key: "getValue",
     value: function getValue() {
-      return this.props.boolean ? this.state.checked : this.state.checked ? this.props.value : undefined;
+      return this.props.boolean ? "".concat(this.state.checked) : this.state.checked ? this.props.value : undefined;
     }
   }, {
     key: "handleChange",
