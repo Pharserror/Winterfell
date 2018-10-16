@@ -13,10 +13,10 @@ export default class Winterfell extends Component {
   constructor(props) {
     super(props);
 
-    this.onAnswerChange = this.handleAnswerChange.bind(this);
-    this.onPanelBack = this.handleBackButtonClick.bind(this);
-    this.onSwitchPanel = this.handleSwitchPanel.bind(this);
-    this.onSubmit = this.handleSubmit.bind(this);
+    this.handleAnswerChange = this.handleAnswerChange.bind(this);
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    this.handleSwitchPanel = this.handleSwitchPanel.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.formComponent = null;
     this.panelHistory = [];
     let schema = extend(
@@ -49,9 +49,9 @@ export default class Winterfell extends Component {
     }
 
     this.state = {
-      schema: schema,
-      currentPanel: currentPanel,
-      action: props.action,
+      currentPanel,
+      schema,
+      action:          props.action,
       questionAnswers: props.questionAnswers
     };
   }
@@ -72,8 +72,8 @@ export default class Winterfell extends Component {
   handleAnswerChange(questionId, questionAnswer) {
     var questionAnswers = (
       chain(this.state.questionAnswers)
-        .set(questionId, questionAnswer)
-        .value()
+      .set(questionId, questionAnswer)
+      .value()
     );
 
     this.setState(

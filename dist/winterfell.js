@@ -166,10 +166,10 @@ function (_Component) {
     _classCallCheck(this, Winterfell);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Winterfell).call(this, props));
-    _this.onAnswerChange = _this.handleAnswerChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onPanelBack = _this.handleBackButtonClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onSwitchPanel = _this.handleSwitchPanel.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleAnswerChange = _this.handleAnswerChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleBackButtonClick = _this.handleBackButtonClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSwitchPanel = _this.handleSwitchPanel.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.formComponent = null;
     _this.panelHistory = [];
     var schema = (0, _extend.default)({
@@ -191,8 +191,8 @@ function (_Component) {
     }
 
     _this.state = {
-      schema: schema,
       currentPanel: currentPanel,
+      schema: schema,
       action: props.action,
       questionAnswers: props.questionAnswers
     };
