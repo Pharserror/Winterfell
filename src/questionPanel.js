@@ -88,7 +88,7 @@ export default class QuestionPanel extends Component {
     /*
      * If the panel isn't valid...
      */
-    if (isEmpty(Object.keys(invalidQuestions))) {
+    if (!isEmpty(Object.keys(invalidQuestions))) {
       const validationErrors = mapValues(invalidQuestions, validations => (
         validations.map(validation => ({
           type:    validation.type,

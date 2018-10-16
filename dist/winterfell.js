@@ -7583,7 +7583,7 @@ function (_Component) {
        */
 
 
-      if ((0, _isEmpty.default)(Object.keys(invalidQuestions))) {
+      if (!(0, _isEmpty.default)(Object.keys(invalidQuestions))) {
         var validationErrors = (0, _mapValues.default)(invalidQuestions, function (validations) {
           return validations.map(function (validation) {
             return {
