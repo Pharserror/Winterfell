@@ -1,8 +1,10 @@
-import chain                from 'lodash/chain';
+import cloneDeep            from 'lodash/cloneDeep';
+import filter               from 'lodash/filter';
 import find                 from 'lodash/find';
 import isEmpty              from 'lodash/isEmpty';
 import isUndefined          from 'lodash/isUndefined';
 import mapValues            from 'lodash/mapValues';
+import set                  from 'lodash/set';
 import React, { Component } from 'react';
 import KeyCodez             from 'keycodez';
 import Button               from './button';
@@ -48,10 +50,10 @@ export default class QuestionPanel extends Component {
       });
     });
 
-    const validationErrors = (
-      chain(this.state.validationErrors)
-      .set(questionId, questionValidationErrors)
-      .value()
+    const validationErrors = set(
+      cloneDeep(this.state.validationErrors),
+      questionId,
+      questionValidationErrors
     );
 
     this.setState({ validationErrors });
@@ -70,10 +72,9 @@ export default class QuestionPanel extends Component {
       questionSet => questionSet.questionSetId
     );
 
-    const questionSets = (
-      chain(this.props.schema.questionSets)
-      .filter(questionSet => questionSetIds.indexOf(questionSet.questionSetId) > -1)
-      .value()
+    const questionSets = filter(
+      this.props.schema.questionSets,
+      questionSet => questionSetIds.indexOf(questionSet.questionSetId) > -1
     );
 
     /*
@@ -142,7 +143,7 @@ export default class QuestionPanel extends Component {
     this.props.onAnswerChange(questionId, questionAnswer);
 
     this.setState({
-      validationErrors: chain(this.state.validationErrors).set(questionId, []).value()
+      validationErrors: set(cloneDeep(this.state.validationErrors), questionId, [])
     });
 
     if (validateOn === 'change') {
