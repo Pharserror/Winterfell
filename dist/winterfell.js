@@ -7717,7 +7717,7 @@ function (_Component) {
         className: this.props.classes.questionSets
       }, this.questionSets()), _react.default.createElement("div", {
         className: this.props.classes.buttonBar
-      }, !(0, _isEmpty.default)(this.props.panelHistory) && !this.props.backButton.disabled ? _react.default.createElement(_button.default, {
+      }, this.props.panelHistory.length > 1 && !this.props.backButton.disabled ? _react.default.createElement(_button.default, {
         text: this.props.backButton.text || 'Back',
         onClick: this.handleBackButtonClick,
         className: this.props.classes.backButton
@@ -8238,7 +8238,6 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement("button", {
         className: this.props.className,
-        href: "javascript:void(0)",
         onClick: this.handleClick
       }, this.props.text);
     }

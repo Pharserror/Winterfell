@@ -227,7 +227,7 @@ export default class QuestionPanel extends Component {
         </div>
         <div className={this.props.classes.buttonBar}>
           {
-            !isEmpty(this.props.panelHistory) && !this.props.backButton.disabled
+            (this.props.panelHistory.length > 1 && !this.props.backButton.disabled)
             ? (
               <Button
                 text={this.props.backButton.text || 'Back'}

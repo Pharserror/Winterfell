@@ -14,11 +14,7 @@ export default class Button extends Component {
 
   render() {
     return (
-      <button
-        className={this.props.className}
-        href="javascript:void(0)"
-        onClick={this.handleClick}
-      >
+      <button className={this.props.className} onClick={this.handleClick}>
         {this.props.text}
       </button>
     );
