@@ -1,10 +1,9 @@
-import chain                from 'lodash/chain';
+import cloneDeep            from 'lodash/cloneDeep';
 import extend               from 'lodash/extend';
 import find                 from 'lodash/find';
 import isEmpty              from 'lodash/isEmpty';
 import isUndefined          from 'lodash/isUndefined';
 import set                  from 'lodash/set';
-import value                from 'lodash/value';
 import React, { Component } from 'react';
 import errorMessages        from './lib/errors';
 import inputTypes           from './inputTypes';
@@ -72,14 +71,14 @@ export default class Winterfell extends Component {
   }
 
   handleAnswerChange(questionId, questionAnswer) {
-    var questionAnswers = (
-      chain(this.state.questionAnswers)
-      .set(questionId, questionAnswer)
-      .value()
+    var questionAnswers = set(
+      cloneDeep(this.state.questionAnswers),
+      questionId,
+      questionAnswer
     );
 
     this.setState(
-      { questionAnswers: questionAnswers },
+      { questionAnswers },
       this.props.onUpdate.bind(null, questionAnswers)
     );
   }
