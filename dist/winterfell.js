@@ -9463,7 +9463,7 @@ function (_Component) {
         className: this.props.classes.questionSetHeader
       }, this.props.questionSetHeader) : null, !(0, _isUndefined.default)(this.props.questionSetText) ? _react.default.createElement("p", {
         className: this.props.classes.questionSetText
-      }, this.props.questionSetText) : null) : null, questions);
+      }, this.props.questionSetText) : null) : null, this.questions());
     }
   }]);
 

@@ -61,7 +61,7 @@ export default class QuestionSet extends Component {
             </div>
           ) : null
         }
-        {questions}
+        {this.questions()}
       </div>
     );
   }
