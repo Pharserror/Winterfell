@@ -3,6 +3,8 @@ import extend               from 'lodash/extend';
 import find                 from 'lodash/find';
 import isEmpty              from 'lodash/isEmpty';
 import isUndefined          from 'lodash/isUndefined';
+import set                  from 'lodash/set';
+import value                from 'lodash/value';
 import React, { Component } from 'react';
 import errorMessages        from './lib/errors';
 import inputTypes           from './inputTypes';
