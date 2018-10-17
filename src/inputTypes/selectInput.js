@@ -41,20 +41,12 @@ export default class SelectInput extends Component {
         name={this.props.name}
         onBlur={this.onBlur}
         onChange={this.handleChange}
-        ref="select"
         required={this.props.required ? 'required' : undefined}
         value={this.state.value}
       >
         {this.options()}
       </select>
     );
-  }
-
-  componentDidMount() {
-    /* Selects automatically pick the first item, so
-     * make sure we set it.
-     */
-    this.handleChange({ target : { value : this.refs.select.value } });
   }
 };
 

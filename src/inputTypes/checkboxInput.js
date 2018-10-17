@@ -70,11 +70,12 @@ export default class CheckboxInput extends Component {
 };
 
 CheckboxInput.defaultProps = {
-  text:           '',
-  defaultChecked: false,
+  boolean:        false,
   classes:        {},
+  defaultChecked: false,
   name:           '',
-  value:          '',
+  onBlur:         () => {},
   onChange:       () => {},
-  onBlur:         () => {}
+  text:           '',
+  value:          ''
 };

@@ -285,9 +285,6 @@ function (_Component) {
         method: this.props.method,
         encType: this.props.encType,
         action: this.state.action,
-        ref: function ref(_ref) {
-          return _this3.formComponent = _ref;
-        },
         className: this.state.schema.classes.form
       }, _react.default.createElement("div", {
         className: this.state.schema.classes.questionPanels
@@ -6517,13 +6514,14 @@ function (_Component) {
 exports.default = CheckboxInput;
 ;
 CheckboxInput.defaultProps = {
-  text: '',
-  defaultChecked: false,
+  boolean: false,
   classes: {},
+  defaultChecked: false,
   name: '',
-  value: '',
+  onBlur: function onBlur() {},
   onChange: function onChange() {},
-  onBlur: function onBlur() {}
+  text: '',
+  value: ''
 };
 
 /***/ }),
@@ -7210,22 +7208,9 @@ function (_Component) {
         name: this.props.name,
         onBlur: this.onBlur,
         onChange: this.handleChange,
-        ref: "select",
         required: this.props.required ? 'required' : undefined,
         value: this.state.value
       }, this.options());
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      /* Selects automatically pick the first item, so
-       * make sure we set it.
-       */
-      this.handleChange({
-        target: {
-          value: this.refs.select.value
-        }
-      });
     }
   }]);
 

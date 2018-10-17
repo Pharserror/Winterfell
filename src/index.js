@@ -144,7 +144,6 @@ export default class Winterfell extends Component {
         method={this.props.method}
         encType={this.props.encType}
         action={this.state.action}
-        ref={ref => this.formComponent = ref}
         className={this.state.schema.classes.form}
       >
         <div className={this.state.schema.classes.questionPanels}>
