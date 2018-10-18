@@ -1,54 +1,9 @@
 import React, { Component } from 'react';
+import BaseInput            from './BaseInput';
+import { extendedProps }    from './props';
 
 export default class EmailInput extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.state = {
-      value : this.props.value
-    };
-  }
-
-  handleChange(event) {
-    this.setState(
-      { value : event.target.value },
-      this.props.onChange.bind(null, event.target.value)
-    );
-  }
-
-  onBlur(event) {
-    this.props.onBlur(this.state.value);
-  }
-
-  render() {
-    return (
-      <input
-        aria-labelledby={this.props.labelId}
-        className={this.props.classes.input}
-        id={this.props.id}
-        name={this.props.name}
-        onBlur={this.onBlur}
-        onChange={this.handleChange}
-        onKeyDown={this.props.onKeyDown}
-        placeholder={this.props.placeholder}
-        required={this.props.required ? 'required' : undefined}
-        type="email"
-        value={this.state.value}
-      />
-    );
-  }
-
+  render() { return ( <BaseInput type="email" {...this.props} /> ); }
 };
 
-EmailInput.defaultProps = {
-  classes:     {},
-  name:        '',
-  id:          '',
-  value:       '',
-  placeholder: '',
-  onChange:    () => {},
-  onBlur:      () => {},
-  onKeyDown:   () => {}
-};
+EmailInput.defaultProps = extendedProps;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import defaults             from './props';
 
 export default class CheckboxInput extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ export default class CheckboxInput extends Component {
             aria-labelledby={this.props.labelId}
             className={this.props.classes.checkbox}
             defaultChecked={this.state.checked}
+            id={this.props.id}
             name={this.props.name}
             onBlur={this.onBlur}
             onChange={this.handleChange}
@@ -70,12 +72,8 @@ export default class CheckboxInput extends Component {
 };
 
 CheckboxInput.defaultProps = {
+  ...defaults,
   boolean:        false,
-  classes:        {},
   defaultChecked: false,
-  name:           '',
-  onBlur:         () => {},
-  onChange:       () => {},
-  text:           '',
-  value:          ''
+  text:           ''
 };

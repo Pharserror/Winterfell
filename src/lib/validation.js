@@ -1,4 +1,5 @@
 import every        from 'lodash/every';
+import isArray      from 'lodash/isArray';
 import isEmpty      from 'lodash/isEmpty';
 import isFunction   from 'lodash/isFunction';
 import isObject     from 'lodash/isObject';
@@ -145,10 +146,7 @@ function getActiveQuestionsFromQuestionSets(questionSets, questionAnswers) {
 function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
   const questionsToCheck = (
     getActiveQuestionsFromQuestionSets(questionSets, questionAnswers)
-    .filter(question => (
-      question.validations instanceof Array
-      && question.validations.length > 0
-    ))
+    .filter(question => isArray(question.validations) && !isEmpty(question.validations))
   );
 
   /*
@@ -161,9 +159,8 @@ function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
    */
   const errors = {};
 
-  questionsToCheck
-  .forEach(({questionId, validations}) =>
-    [].forEach.bind(validations, validation => {
+  questionsToCheck.forEach(({questionId, validations}) => {
+    validations.forEach(validation => {
       const valid = validateAnswer(
         questionAnswers[questionId],
         validation,
@@ -181,8 +178,8 @@ function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
       }
 
       errors[questionId].push(validation);
-    }
-  )());
+    }, this);
+  }, this);
 
   return errors;
 };

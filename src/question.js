@@ -1,3 +1,4 @@
+import isEmpty              from 'lodash/isEmpty';
 import isFunction           from 'lodash/isFunction';
 import isObject             from 'lodash/isObject';
 import isUndefined          from 'lodash/isUndefined';
@@ -58,11 +59,11 @@ export default class Question extends Component {
         : this.props.value === option.value
       ))
       .filter(option => (
-        !isUndefined(option.conditionalQuestions)
-        && option.conditionalQuestions.length > 0
+        !isUndefined(option.conditionalQuestions) &&
+        !isEmpty(option.conditionalQuestions)
       ))
       .forEach(option => (
-        [].forEach.bind(option.conditionalQuestions, conditionalQuestion => {
+        option.conditionalQuestions.forEach(conditionalQuestion => {
           conditionalItems.push(
             <Question
               classes={this.props.classes}
@@ -84,8 +85,8 @@ export default class Question extends Component {
               value={this.props.questionAnswers[conditionalQuestion.questionId]}
             />
           );
-        }
-      ))());
+        }, this)
+      ));
     }
 
     // Get the current value. If none is set, then use
@@ -103,19 +104,21 @@ export default class Question extends Component {
     // error-message blocks.
     let validationErrors = (
       !isUndefined(this.props.validationErrors[this.props.questionId])
-      ? this.props.validationErrors[this.props.questionId]
-      .map(error => (
-        isFunction(this.props.renderError)
-        ? this.props.renderError(error, this.props.questionId)
-        : (
-          <div
-            key={`${this.props.questionId} Error ${error.type}`}
-            className={this.props.classes.errorMessage}
-          >
-            {error.message}
-          </div>
-        )
-      )) : []
+      ? (
+        this.props.validationErrors[this.props.questionId]
+        .map(error => (
+          isFunction(this.props.renderError)
+          ? this.props.renderError(error, this.props.questionId)
+          : (
+            <div
+              key={`${this.props.questionId} Error ${error.type}`}
+              className={this.props.classes.errorMessage}
+            >
+              {error.message}
+            </div>
+          )
+        ))
+      ) : []
     );
 
     let labelId = `${this.props.questionId}-label`;
@@ -132,8 +135,8 @@ export default class Question extends Component {
             >
               {this.props.question}
               {
-                !isUndefined(this.props.renderRequiredAsterisk)
-                && this.props.input.required
+                !isUndefined(this.props.renderRequiredAsterisk) &&
+                this.props.input.required
                 ? this.props.renderRequiredAsterisk()
                 : null
               }

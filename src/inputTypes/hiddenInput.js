@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import { basicProps }       from './props';
 
 export default class HiddenInput extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      value : this.props.value
-    };
+    this.state = { value: this.props.value };
   }
 
   render() {
@@ -20,7 +19,4 @@ export default class HiddenInput extends Component {
   }
 };
 
-HiddenInput.defaultProps = {
-  name:  '',
-  value: ''
-};
+HiddenInput.defaultProps = basicProps;

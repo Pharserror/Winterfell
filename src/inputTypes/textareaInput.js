@@ -1,25 +1,14 @@
 import React, { Component } from 'react';
+import * as actions         from './actions';
+import { defaults }         from './props';
 
 export default class TextareaInput extends Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.state = {
-      value : this.props.value
-    };
-  }
-
-  handleChange(event) {
-    this.setState(
-      { value : event.target.value },
-      this.props.onChange.bind(null, event.target.value)
-    );
-  }
-
-  onBlur(event) {
-    this.props.onBlur(this.state.value);
+    this.handleChange = actions.handleChange.bind(this);
+    this.onBlur = actions.onBlur.bind(this);
+    this.state = { value: this.props.value };
   }
 
   render() {
@@ -42,11 +31,6 @@ export default class TextareaInput extends Component {
 };
 
 TextareaInput.defaultProps = {
-  classes:     {},
-  id:          '',
-  name:        '',
-  onBlur:      () => {},
-  onChange:    () => {},
-  placeholder: '',
-  value:       ''
+  ...defaults,
+  placeholder: ''
 };

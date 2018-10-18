@@ -45,16 +45,14 @@ const errorMessages = {
   /*
    * String contains seed
    */
-  contains: validationItem => {
-    return `Please enter a value that contains "${validationItem.params[0]}"`;
-  },
+  contains: validationItem => (
+    `Please enter a value that contains "${validationItem.params[0]}"`
+  ),
 
   /*
    * String equals string
    */
-  equals: validationItem => {
-    return `Value must equal ${validationItem.params[0]}`;
-  },
+  equals: validationItem => `Value must equal ${validationItem.params[0]}`,
 
   /*
    * Characters A-Z only

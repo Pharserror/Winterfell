@@ -131,9 +131,9 @@ var _errors = _interopRequireDefault(__webpack_require__(173));
 
 var _inputTypes = _interopRequireDefault(__webpack_require__(175));
 
-var _questionPanel = _interopRequireDefault(__webpack_require__(187));
+var _questionPanel = _interopRequireDefault(__webpack_require__(190));
 
-var _validation = _interopRequireDefault(__webpack_require__(198));
+var _validation = _interopRequireDefault(__webpack_require__(201));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -6328,23 +6328,23 @@ var _react = _interopRequireWildcard(__webpack_require__(172));
 
 var _checkboxInput = _interopRequireDefault(__webpack_require__(176));
 
-var _checkboxOptionsInput = _interopRequireDefault(__webpack_require__(177));
+var _checkboxOptionsInput = _interopRequireDefault(__webpack_require__(178));
 
-var _emailInput = _interopRequireDefault(__webpack_require__(179));
+var _emailInput = _interopRequireDefault(__webpack_require__(180));
 
-var _fileInput = _interopRequireDefault(__webpack_require__(180));
+var _fileInput = _interopRequireDefault(__webpack_require__(183));
 
-var _hiddenInput = _interopRequireDefault(__webpack_require__(181));
+var _hiddenInput = _interopRequireDefault(__webpack_require__(184));
 
-var _passwordInput = _interopRequireDefault(__webpack_require__(182));
+var _passwordInput = _interopRequireDefault(__webpack_require__(185));
 
-var _radioOptionsInput = _interopRequireDefault(__webpack_require__(183));
+var _radioOptionsInput = _interopRequireDefault(__webpack_require__(186));
 
-var _selectInput = _interopRequireDefault(__webpack_require__(184));
+var _selectInput = _interopRequireDefault(__webpack_require__(187));
 
-var _textareaInput = _interopRequireDefault(__webpack_require__(185));
+var _textareaInput = _interopRequireDefault(__webpack_require__(188));
 
-var _textInput = _interopRequireDefault(__webpack_require__(186));
+var _textInput = _interopRequireDefault(__webpack_require__(189));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -6414,7 +6414,15 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var _props = _interopRequireDefault(__webpack_require__(177));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -6498,6 +6506,7 @@ function (_Component) {
         "aria-labelledby": this.props.labelId,
         className: this.props.classes.checkbox,
         defaultChecked: this.state.checked,
+        id: this.props.id,
         name: this.props.name,
         onBlur: this.onBlur,
         onChange: this.handleChange,
@@ -6513,19 +6522,52 @@ function (_Component) {
 
 exports.default = CheckboxInput;
 ;
-CheckboxInput.defaultProps = {
+CheckboxInput.defaultProps = _objectSpread({}, _props.default, {
   boolean: false,
-  classes: {},
   defaultChecked: false,
-  name: '',
-  onBlur: function onBlur() {},
-  onChange: function onChange() {},
-  text: '',
-  value: ''
-};
+  text: ''
+});
 
 /***/ }),
 /* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.extendedProps = exports.defaults = exports.basicProps = void 0;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var basicProps = {
+  name: '',
+  value: ''
+};
+exports.basicProps = basicProps;
+
+var defaults = _objectSpread({}, basicProps, {
+  classes: {},
+  id: '',
+  onBlur: function onBlur() {},
+  onChange: function onChange() {}
+});
+
+exports.defaults = defaults;
+
+var extendedProps = _objectSpread({}, defaults, {
+  onKeyDown: function onKeyDown() {},
+  placeholder: ''
+});
+
+exports.extendedProps = extendedProps;
+
+/***/ }),
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6538,11 +6580,17 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
-var _cloneArray = _interopRequireDefault(__webpack_require__(178));
+var _cloneArray = _interopRequireDefault(__webpack_require__(179));
+
+var _props = __webpack_require__(177);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -6603,24 +6651,25 @@ function (_Component) {
 
       return _react.default.createElement("ul", {
         className: this.props.classes.checkboxList
-      }, this.props.options.map(function (opt) {
+      }, this.props.options.map(function (option) {
         return _react.default.createElement("li", {
           className: _this2.props.classes.checkboxListItem,
-          key: opt.value
+          key: option.value
         }, _react.default.createElement("label", {
           className: _this2.props.classes.checkboxLabel,
           id: _this2.props.labelId
         }, _react.default.createElement("input", {
           "aria-labelledby": _this2.props.labelId,
-          checked: _this2.state.value.indexOf(opt.value) > -1,
+          checked: _this2.state.value.indexOf(option.value) > -1,
           className: _this2.props.classes.checkbox,
+          id: _this2.props.id,
           name: _this2.props.name,
           onBlur: _this2.props.onBlur.bind(null, _this2.state.value),
-          onChange: _this2.handleChange.bind(_this2, opt.value),
+          onChange: _this2.handleChange.bind(_this2, option.value),
           required: _this2.props.required ? 'required' : undefined,
           type: "checkbox",
-          value: opt.value
-        }), opt.text));
+          value: option.value
+        }), option.text));
       }));
     }
   }]);
@@ -6630,17 +6679,13 @@ function (_Component) {
 
 exports.default = CheckboxOptionsInput;
 ;
-CheckboxOptionsInput.defaultProps = {
-  classes: {},
-  name: '',
+CheckboxOptionsInput.defaultProps = _objectSpread({}, _props.defaults, {
   value: [],
-  options: [],
-  onChange: function onChange() {},
-  onBlur: function onBlur() {}
-};
+  options: []
+});
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6656,106 +6701,6 @@ function cloneArray(array) {
 }
 
 /***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(__webpack_require__(172));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-var EmailInput =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(EmailInput, _Component);
-
-  function EmailInput(props) {
-    var _this;
-
-    _classCallCheck(this, EmailInput);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(EmailInput).call(this, props));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      value: _this.props.value
-    };
-    return _this;
-  }
-
-  _createClass(EmailInput, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      this.setState({
-        value: event.target.value
-      }, this.props.onChange.bind(null, event.target.value));
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(event) {
-      this.props.onBlur(this.state.value);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("input", {
-        "aria-labelledby": this.props.labelId,
-        className: this.props.classes.input,
-        id: this.props.id,
-        name: this.props.name,
-        onBlur: this.onBlur,
-        onChange: this.handleChange,
-        onKeyDown: this.props.onKeyDown,
-        placeholder: this.props.placeholder,
-        required: this.props.required ? 'required' : undefined,
-        type: "email",
-        value: this.state.value
-      });
-    }
-  }]);
-
-  return EmailInput;
-}(_react.Component);
-
-exports.default = EmailInput;
-;
-EmailInput.defaultProps = {
-  classes: {},
-  name: '',
-  id: '',
-  value: '',
-  placeholder: '',
-  onChange: function onChange() {},
-  onBlur: function onBlur() {},
-  onKeyDown: function onKeyDown() {}
-};
-
-/***/ }),
 /* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6769,9 +6714,17 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var _BaseInput = _interopRequireDefault(__webpack_require__(181));
+
+var _props = __webpack_require__(177);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6781,74 +6734,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-var FileInput =
+var EmailInput =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FileInput, _Component);
+  _inherits(EmailInput, _Component);
 
-  function FileInput(props) {
-    var _this;
+  function EmailInput() {
+    _classCallCheck(this, EmailInput);
 
-    _classCallCheck(this, FileInput);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(FileInput).call(this, props));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      value: _this.props.value
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(EmailInput).apply(this, arguments));
   }
 
-  _createClass(FileInput, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      this.setState({
-        value: event.target.value
-      }, this.props.onChange.bind(null, event.target.value));
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(event) {
-      this.props.onBlur(this.state.value);
-    }
-  }, {
+  _createClass(EmailInput, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("input", {
-        "aria-labelledby": this.props.labelId,
-        className: this.props.classes.file,
-        id: this.props.id,
-        name: this.props.name,
-        onBlur: this.onBlur,
-        onChange: this.handleChange,
-        required: this.props.required ? 'required' : undefined,
-        type: "file"
-      });
+      return _react.default.createElement(_BaseInput.default, _extends({
+        type: "email"
+      }, this.props));
     }
   }]);
 
-  return FileInput;
+  return EmailInput;
 }(_react.Component);
 
-exports.default = FileInput;
+exports.default = EmailInput;
 ;
-FileInput.defaultProps = {
-  classes: {},
-  name: '',
-  id: '',
-  value: '',
-  onChange: function onChange() {},
-  onBlur: function onBlur() {}
-};
+EmailInput.defaultProps = _props.extendedProps;
 
 /***/ }),
 /* 181 */
@@ -6863,6 +6782,183 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
+
+var actions = _interopRequireWildcard(__webpack_require__(182));
+
+var _props = __webpack_require__(177);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var BaseInput =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(BaseInput, _Component);
+
+  function BaseInput(props) {
+    var _this;
+
+    _classCallCheck(this, BaseInput);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BaseInput).call(this, props));
+    _this.handleChange = actions.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onBlur = actions.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      value: _this.props.value
+    };
+    return _this;
+  }
+
+  _createClass(BaseInput, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("input", {
+        "aria-labelledby": this.props.labelId,
+        className: this.props.classes.input,
+        id: this.props.id,
+        name: this.props.name,
+        onBlur: this.onBlur,
+        onChange: this.handleChange,
+        required: this.props.required ? 'required' : undefined,
+        type: this.props.type,
+        value: this.state.value
+      });
+    }
+  }]);
+
+  return BaseInput;
+}(_react.Component);
+
+exports.default = BaseInput;
+BaseInput.defaultProps = _props.defaults;
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleChange = handleChange;
+exports.onBlur = onBlur;
+
+function handleChange(_ref) {
+  var value = _ref.target.value;
+  this.setState({
+    value: value
+  }, this.props.onChange.bind(null, value));
+}
+
+function onBlur(_event) {
+  this.props.onBlur(this.state.value);
+}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(172));
+
+var actions = _interopRequireWildcard(__webpack_require__(182));
+
+var _BaseInput = _interopRequireDefault(__webpack_require__(181));
+
+var _props = __webpack_require__(177);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var FileInput =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(FileInput, _Component);
+
+  function FileInput() {
+    _classCallCheck(this, FileInput);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(FileInput).apply(this, arguments));
+  }
+
+  _createClass(FileInput, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement(_BaseInput.default, _extends({
+        type: "file"
+      }, this.props));
+    }
+  }]);
+
+  return FileInput;
+}(_react.Component);
+
+exports.default = FileInput;
+;
+FileInput.defaultProps = _props.defaults;
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(172));
+
+var _props = __webpack_require__(177);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -6917,13 +7013,10 @@ function (_Component) {
 
 exports.default = HiddenInput;
 ;
-HiddenInput.defaultProps = {
-  name: '',
-  value: ''
-};
+HiddenInput.defaultProps = _props.basicProps;
 
 /***/ }),
-/* 182 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6936,9 +7029,19 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var actions = _interopRequireWildcard(__webpack_require__(182));
+
+var _BaseInput = _interopRequireDefault(__webpack_require__(181));
+
+var _props = __webpack_require__(177);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6948,61 +7051,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 var PasswordInput =
 /*#__PURE__*/
 function (_Component) {
   _inherits(PasswordInput, _Component);
 
-  function PasswordInput(props) {
-    var _this;
-
+  function PasswordInput() {
     _classCallCheck(this, PasswordInput);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(PasswordInput).call(this, props));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      value: _this.props.value
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(PasswordInput).apply(this, arguments));
   }
 
   _createClass(PasswordInput, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      this.setState({
-        value: event.target.value
-      }, this.props.onChange.bind(null, event.target.value));
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(event) {
-      this.props.onBlur(this.state.value);
-    }
-  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("input", {
-        "aria-labelledby": this.props.labelId,
-        className: this.props.classes.input,
-        id: this.props.id,
-        name: this.props.name,
-        onBlur: this.onBlur,
-        onChange: this.handleChange,
-        onKeyDown: this.props.onKeyDown,
-        placeholder: this.props.placeholder,
-        required: this.props.required ? 'required' : undefined,
-        type: "password",
-        value: this.state.value
-      });
+      return _react.default.createElement(_BaseInput.default, _extends({
+        type: "password"
+      }, this.props));
     }
   }]);
 
@@ -7011,20 +7084,10 @@ function (_Component) {
 
 exports.default = PasswordInput;
 ;
-PasswordInput.defaultProps = {
-  classes: {},
-  name: '',
-  id: '',
-  value: '',
-  placeholder: '',
-  onChange: function onChange() {},
-  onBlur: function onBlur() {},
-  onKeyDown: function onKeyDown() {}
-};
-module.exports = PasswordInput;
+PasswordInput.defaultProps = _props.extendedProps;
 
 /***/ }),
-/* 183 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7032,7 +7095,13 @@ module.exports = PasswordInput;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var _props = __webpack_require__(177);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -7100,6 +7169,7 @@ function (_React$Component) {
           "aria-labelledby": _this2.props.labelId,
           checked: _this2.state.value === choice.value,
           className: _this2.props.classes.radio,
+          id: _this2.props.id,
           name: _this2.props.name,
           onBlur: _this2.onBlur,
           onChange: _this2.handleChange.bind(_this2, choice.value),
@@ -7114,17 +7184,12 @@ function (_React$Component) {
 }(_react.default.Component);
 
 ;
-RadioOptionsInput.defaultProps = {
-  classes: {},
-  name: '',
-  value: '',
-  options: [],
-  onChange: function onChange() {},
-  onBlur: function onBlur() {}
-};
+RadioOptionsInput.defaultProps = _objectSpread({}, _props.defaults, {
+  options: []
+});
 
 /***/ }),
-/* 184 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7137,7 +7202,15 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var actions = _interopRequireWildcard(__webpack_require__(182));
+
+var _props = __webpack_require__(177);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -7168,8 +7241,8 @@ function (_Component) {
     _classCallCheck(this, SelectInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectInput).call(this, props));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = actions.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onBlur = actions.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.options = _this.options.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       value: _this.props.value
@@ -7178,18 +7251,6 @@ function (_Component) {
   }
 
   _createClass(SelectInput, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      this.setState({
-        value: event.target.value
-      }, this.props.onChange.bind(null, event.target.value));
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(event) {
-      this.props.onBlur(this.state.value);
-    }
-  }, {
     key: "options",
     value: function options() {
       return this.props.options.map(function (choice) {
@@ -7219,18 +7280,12 @@ function (_Component) {
 
 exports.default = SelectInput;
 ;
-SelectInput.defaultProps = {
-  classes: {},
-  id: '',
-  name: '',
-  onBlur: function onBlur() {},
-  onChange: function onChange() {},
-  options: [],
-  value: ''
-};
+SelectInput.defaultProps = _objectSpread({}, _props.defaults, {
+  options: []
+});
 
 /***/ }),
-/* 185 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7243,7 +7298,15 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var actions = _interopRequireWildcard(__webpack_require__(182));
+
+var _props = __webpack_require__(177);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -7274,8 +7337,8 @@ function (_Component) {
     _classCallCheck(this, TextareaInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TextareaInput).call(this, props));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = actions.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onBlur = actions.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       value: _this.props.value
     };
@@ -7283,18 +7346,6 @@ function (_Component) {
   }
 
   _createClass(TextareaInput, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      this.setState({
-        value: event.target.value
-      }, this.props.onChange.bind(null, event.target.value));
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(event) {
-      this.props.onBlur(this.state.value);
-    }
-  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("textarea", {
@@ -7317,18 +7368,12 @@ function (_Component) {
 
 exports.default = TextareaInput;
 ;
-TextareaInput.defaultProps = {
-  classes: {},
-  id: '',
-  name: '',
-  onBlur: function onBlur() {},
-  onChange: function onChange() {},
-  placeholder: '',
-  value: ''
-};
+TextareaInput.defaultProps = _objectSpread({}, _props.defaults, {
+  placeholder: ''
+});
 
 /***/ }),
-/* 186 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7341,9 +7386,19 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
+var actions = _interopRequireWildcard(__webpack_require__(182));
+
+var _BaseInput = _interopRequireDefault(__webpack_require__(181));
+
+var _props = __webpack_require__(177);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7353,61 +7408,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 var TextInput =
 /*#__PURE__*/
 function (_Component) {
   _inherits(TextInput, _Component);
 
-  function TextInput(props) {
-    var _this;
-
+  function TextInput() {
     _classCallCheck(this, TextInput);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(TextInput).call(this, props));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      value: _this.props.value
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(TextInput).apply(this, arguments));
   }
 
   _createClass(TextInput, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      this.setState({
-        value: event.target.value
-      }, this.props.onChange.bind(null, event.target.value));
-    }
-  }, {
-    key: "onBlur",
-    value: function onBlur(event) {
-      this.props.onBlur(this.state.value);
-    }
-  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("input", {
-        type: "text",
-        name: this.props.name,
-        id: this.props.id,
-        "aria-labelledby": this.props.labelId,
-        className: this.props.classes.input,
-        placeholder: this.props.placeholder,
-        value: this.state.value,
-        required: this.props.required ? 'required' : undefined,
-        onChange: this.handleChange,
-        onBlur: this.onBlur,
-        onKeyDown: this.props.onKeyDown
-      });
+      return _react.default.createElement(_BaseInput.default, _extends({
+        type: "text"
+      }, this.props));
     }
   }]);
 
@@ -7416,19 +7441,10 @@ function (_Component) {
 
 exports.default = TextInput;
 ;
-TextInput.defaultProps = {
-  classes: {},
-  id: '',
-  name: '',
-  onBlur: function onBlur() {},
-  onChange: function onChange() {},
-  onKeyDown: function onKeyDown() {},
-  placeholder: '',
-  value: ''
-};
+TextInput.defaultProps = _props.extendedProps;
 
 /***/ }),
-/* 187 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7441,7 +7457,7 @@ exports.default = void 0;
 
 var _cloneDeep = _interopRequireDefault(__webpack_require__(2));
 
-var _filter = _interopRequireDefault(__webpack_require__(188));
+var _filter = _interopRequireDefault(__webpack_require__(191));
 
 var _find = _interopRequireDefault(__webpack_require__(124));
 
@@ -7449,21 +7465,21 @@ var _isEmpty = _interopRequireDefault(__webpack_require__(168));
 
 var _isUndefined = _interopRequireDefault(__webpack_require__(169));
 
-var _mapValues = _interopRequireDefault(__webpack_require__(195));
+var _mapValues = _interopRequireDefault(__webpack_require__(198));
 
 var _set = _interopRequireDefault(__webpack_require__(170));
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
-var _keycodez = _interopRequireDefault(__webpack_require__(196));
+var _keycodez = _interopRequireDefault(__webpack_require__(199));
 
-var _button = _interopRequireDefault(__webpack_require__(197));
+var _button = _interopRequireDefault(__webpack_require__(200));
 
 var _errors = _interopRequireDefault(__webpack_require__(173));
 
-var _validation = _interopRequireDefault(__webpack_require__(198));
+var _validation = _interopRequireDefault(__webpack_require__(201));
 
-var _questionSet = _interopRequireDefault(__webpack_require__(206));
+var _questionSet = _interopRequireDefault(__webpack_require__(209));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -7748,11 +7764,11 @@ QuestionPanel.defaultProps = {
 };
 
 /***/ }),
-/* 188 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayFilter = __webpack_require__(84),
-    baseFilter = __webpack_require__(189),
+    baseFilter = __webpack_require__(192),
     baseIteratee = __webpack_require__(126),
     isArray = __webpack_require__(61);
 /**
@@ -7802,10 +7818,10 @@ function filter(collection, predicate) {
 module.exports = filter;
 
 /***/ }),
-/* 189 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseEach = __webpack_require__(190);
+var baseEach = __webpack_require__(193);
 /**
  * The base implementation of `_.filter` without support for iteratee shorthands.
  *
@@ -7829,11 +7845,11 @@ function baseFilter(collection, predicate) {
 module.exports = baseFilter;
 
 /***/ }),
-/* 190 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseForOwn = __webpack_require__(191),
-    createBaseEach = __webpack_require__(194);
+var baseForOwn = __webpack_require__(194),
+    createBaseEach = __webpack_require__(197);
 /**
  * The base implementation of `_.forEach` without support for iteratee shorthands.
  *
@@ -7848,10 +7864,10 @@ var baseEach = createBaseEach(baseForOwn);
 module.exports = baseEach;
 
 /***/ }),
-/* 191 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseFor = __webpack_require__(192),
+var baseFor = __webpack_require__(195),
     keys = __webpack_require__(55);
 /**
  * The base implementation of `_.forOwn` without support for iteratee shorthands.
@@ -7870,10 +7886,10 @@ function baseForOwn(object, iteratee) {
 module.exports = baseForOwn;
 
 /***/ }),
-/* 192 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createBaseFor = __webpack_require__(193);
+var createBaseFor = __webpack_require__(196);
 /**
  * The base implementation of `baseForOwn` which iterates over `object`
  * properties returned by `keysFunc` and invokes `iteratee` for each property.
@@ -7891,7 +7907,7 @@ var baseFor = createBaseFor();
 module.exports = baseFor;
 
 /***/ }),
-/* 193 */
+/* 196 */
 /***/ (function(module, exports) {
 
 /**
@@ -7923,7 +7939,7 @@ function createBaseFor(fromRight) {
 module.exports = createBaseFor;
 
 /***/ }),
-/* 194 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(75);
@@ -7964,11 +7980,11 @@ function createBaseEach(eachFunc, fromRight) {
 module.exports = createBaseEach;
 
 /***/ }),
-/* 195 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseAssignValue = __webpack_require__(51),
-    baseForOwn = __webpack_require__(191),
+    baseForOwn = __webpack_require__(194),
     baseIteratee = __webpack_require__(126);
 /**
  * Creates an object with the same keys as `object` and values generated
@@ -8012,7 +8028,7 @@ function mapValues(object, iteratee) {
 module.exports = mapValues;
 
 /***/ }),
-/* 196 */
+/* 199 */
 /***/ (function(module, exports) {
 
 /*
@@ -8164,7 +8180,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 197 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8240,7 +8256,7 @@ Button.defaultProps = {
 };
 
 /***/ }),
-/* 198 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8251,7 +8267,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _every = _interopRequireDefault(__webpack_require__(199));
+var _every = _interopRequireDefault(__webpack_require__(202));
+
+var _isArray = _interopRequireDefault(__webpack_require__(61));
 
 var _isEmpty = _interopRequireDefault(__webpack_require__(168));
 
@@ -8263,9 +8281,9 @@ var _isString = _interopRequireDefault(__webpack_require__(174));
 
 var _isUndefined = _interopRequireDefault(__webpack_require__(169));
 
-var _validator = _interopRequireDefault(__webpack_require__(202));
+var _validator = _interopRequireDefault(__webpack_require__(205));
 
-var _stringParser = _interopRequireDefault(__webpack_require__(205));
+var _stringParser = _interopRequireDefault(__webpack_require__(208));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8391,8 +8409,10 @@ function getActiveQuestionsFromQuestionSets(questionSets, questionAnswers) {
  */
 
 function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
+  var _this = this;
+
   var questionsToCheck = getActiveQuestionsFromQuestionSets(questionSets, questionAnswers).filter(function (question) {
-    return question.validations instanceof Array && question.validations.length > 0;
+    return (0, _isArray.default)(question.validations) && !(0, _isEmpty.default)(question.validations);
   });
   /*
    * Now we run validations for the questions
@@ -8407,7 +8427,7 @@ function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
   questionsToCheck.forEach(function (_ref) {
     var questionId = _ref.questionId,
         validations = _ref.validations;
-    return [].forEach.bind(validations, function (validation) {
+    validations.forEach(function (validation) {
       var valid = validateAnswer(questionAnswers[questionId], validation, questionAnswers);
 
       if (valid) {
@@ -8424,8 +8444,8 @@ function getQuestionPanelInvalidQuestions(questionSets, questionAnswers) {
       }
 
       errors[questionId].push(validation);
-    })();
-  });
+    }, _this);
+  }, this);
   return errors;
 }
 
@@ -8479,11 +8499,11 @@ var _default = actions;
 exports.default = _default;
 
 /***/ }),
-/* 199 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayEvery = __webpack_require__(200),
-    baseEvery = __webpack_require__(201),
+var arrayEvery = __webpack_require__(203),
+    baseEvery = __webpack_require__(204),
     baseIteratee = __webpack_require__(126),
     isArray = __webpack_require__(61),
     isIterateeCall = __webpack_require__(123);
@@ -8543,7 +8563,7 @@ function every(collection, predicate, guard) {
 module.exports = every;
 
 /***/ }),
-/* 200 */
+/* 203 */
 /***/ (function(module, exports) {
 
 /**
@@ -8572,10 +8592,10 @@ function arrayEvery(array, predicate) {
 module.exports = arrayEvery;
 
 /***/ }),
-/* 201 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseEach = __webpack_require__(190);
+var baseEach = __webpack_require__(193);
 /**
  * The base implementation of `_.every` without support for iteratee shorthands.
  *
@@ -8599,7 +8619,7 @@ function baseEvery(collection, predicate) {
 module.exports = baseEvery;
 
 /***/ }),
-/* 202 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, process) {/*!
@@ -8749,7 +8769,7 @@ module.exports = baseEvery;
         return;
       }
 
-      depd = __webpack_require__(204)('validator');
+      depd = __webpack_require__(207)('validator');
     }
 
     depd(msg);
@@ -9643,10 +9663,10 @@ module.exports = baseEvery;
   validator.init();
   return validator;
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(63)(module), __webpack_require__(203)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(63)(module), __webpack_require__(206)))
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -9859,7 +9879,7 @@ process.umask = function () {
 };
 
 /***/ }),
-/* 204 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9938,7 +9958,7 @@ function wrapproperty(obj, prop, message) {
 }
 
 /***/ }),
-/* 205 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10031,7 +10051,7 @@ function stringParser(template, params) {
 ;
 
 /***/ }),
-/* 206 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10046,7 +10066,7 @@ var _isUndefined = _interopRequireDefault(__webpack_require__(169));
 
 var _react = _interopRequireWildcard(__webpack_require__(172));
 
-var _question = _interopRequireDefault(__webpack_require__(207));
+var _question = _interopRequireDefault(__webpack_require__(210));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -10150,7 +10170,7 @@ QuestionSet.defaultProps = {
 };
 
 /***/ }),
-/* 207 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10160,6 +10180,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _isEmpty = _interopRequireDefault(__webpack_require__(168));
 
 var _isFunction = _interopRequireDefault(__webpack_require__(21));
 
@@ -10248,9 +10270,9 @@ function (_Component) {
         this.props.input.options.filter(function (option) {
           return _this2.props.value instanceof Array ? _this2.props.value.indexOf(option.value) > -1 : _this2.props.value === option.value;
         }).filter(function (option) {
-          return !(0, _isUndefined.default)(option.conditionalQuestions) && option.conditionalQuestions.length > 0;
+          return !(0, _isUndefined.default)(option.conditionalQuestions) && !(0, _isEmpty.default)(option.conditionalQuestions);
         }).forEach(function (option) {
-          return [].forEach.bind(option.conditionalQuestions, function (conditionalQuestion) {
+          return option.conditionalQuestions.forEach(function (conditionalQuestion) {
             conditionalItems.push(_react.default.createElement(Question, {
               classes: _this2.props.classes,
               input: conditionalQuestion.input,
@@ -10270,7 +10292,7 @@ function (_Component) {
               validations: conditionalQuestion.validations,
               value: _this2.props.questionAnswers[conditionalQuestion.questionId]
             }));
-          })();
+          }, _this2);
         });
       } // Get the current value. If none is set, then use
       // the default if given.

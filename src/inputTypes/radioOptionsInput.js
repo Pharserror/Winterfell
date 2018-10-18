@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
+import { defaults }         from './props';
 
 class RadioOptionsInput extends React.Component {
   constructor(props) {
     super(props);
 
     this.onBlur = this.onBlur.bind(this);
-    this.state = {
-      value : this.props.value
-    };
+    this.state = { value: this.props.value };
   }
 
   handleChange(value) {
@@ -38,6 +37,7 @@ class RadioOptionsInput extends React.Component {
                   aria-labelledby={this.props.labelId}
                   checked={this.state.value === choice.value}
                   className={this.props.classes.radio}
+                  id={this.props.id}
                   name={this.props.name}
                   onBlur={this.onBlur}
                   onChange={this.handleChange.bind(this, choice.value)}
@@ -56,10 +56,6 @@ class RadioOptionsInput extends React.Component {
 };
 
 RadioOptionsInput.defaultProps = {
-  classes:  {},
-  name:     '',
-  value:    '',
-  options:  [],
-  onChange: () => {},
-  onBlur:   () => {}
+  ...defaults,
+  options: [],
 };

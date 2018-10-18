@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import cloneArray from '../lib/cloneArray';
+import cloneArray           from '../lib/cloneArray';
+import { defaults }         from './props';
 
 export default class CheckboxOptionsInput extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value : (
+      value: (
         this.props.value.length > 0
         ? cloneArray(this.props.value)
         : []
@@ -15,7 +16,7 @@ export default class CheckboxOptionsInput extends Component {
   }
 
   handleChange(newValue, event) {
-    var currentValue = this.state.value;
+    let currentValue = this.state.value;
 
     if (event.target.checked) {
       currentValue.push(newValue);
@@ -25,7 +26,7 @@ export default class CheckboxOptionsInput extends Component {
 
 
     this.setState(
-      { value : currentValue },
+      { value: currentValue },
       this.props.onChange.bind(null, currentValue)
     );
   }
@@ -34,10 +35,10 @@ export default class CheckboxOptionsInput extends Component {
     return (
       <ul className={this.props.classes.checkboxList}>
         {
-          this.props.options.map(opt => (
+          this.props.options.map(option => (
             <li
               className={this.props.classes.checkboxListItem}
-              key={opt.value}
+              key={option.value}
             >
               <label
                 className={this.props.classes.checkboxLabel}
@@ -45,16 +46,17 @@ export default class CheckboxOptionsInput extends Component {
               >
                 <input
                   aria-labelledby={this.props.labelId}
-                  checked={this.state.value.indexOf(opt.value) > -1}
+                  checked={this.state.value.indexOf(option.value) > -1}
                   className={this.props.classes.checkbox}
+                  id={this.props.id}
                   name={this.props.name}
                   onBlur={this.props.onBlur.bind(null, this.state.value)}
-                  onChange={this.handleChange.bind(this, opt.value)}
+                  onChange={this.handleChange.bind(this, option.value)}
                   required={this.props.required ? 'required' : undefined}
                   type="checkbox"
-                  value={opt.value}
+                  value={option.value}
                 />
-                {opt.text}
+                {option.text}
               </label>
             </li>
           ))
@@ -65,10 +67,7 @@ export default class CheckboxOptionsInput extends Component {
 };
 
 CheckboxOptionsInput.defaultProps = {
-  classes:  {},
-  name:     '',
-  value:    [],
-  options:  [],
-  onChange: () => {},
-  onBlur:   () => {}
+  ...defaults,
+  value:   [],
+  options: []
 };
