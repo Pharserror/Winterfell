@@ -5,19 +5,16 @@ module.exports = {
       './src/index.js'
     ]
   },
-  externals : {
-    'lodash': 'umd lodash',
-    'react': 'umd React'
-  },
   mode: 'none',
   module: {
     rules: [{
       test: /\.jsx?$/,
-      loader: 'babel-loader',
-    }, {
-      test: /\.scss$/,
-      loaders: ['style-loader', 'css-loader', 'sass-loader']
+      loader: 'babel-loader'
     }]
+  },
+  externals : {
+    'lodash': 'umd lodash',
+    'react': 'umd React'
   },
   output: {
     libraryTarget: 'umd',
