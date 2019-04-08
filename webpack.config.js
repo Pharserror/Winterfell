@@ -14,6 +14,7 @@ module.exports = {
   },
   externals : {
     'lodash': 'umd lodash',
+    'prop-types': 'umd prop-types',
     'react': 'umd react'
   },
   output: {
