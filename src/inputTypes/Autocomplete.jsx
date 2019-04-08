@@ -4,7 +4,7 @@ import Selectr              from 'selectr';
 export default class Autocomplete extends Component {
   render() {
     return (
-      <Selectr {...this.props} />
+      <Selectr onSelectOption={this.props.onChange} {...this.props} />
     );
   }
 }

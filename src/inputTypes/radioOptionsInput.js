@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { defaults }         from './props';
 
-class RadioOptionsInput extends React.Component {
+export default class RadioOptionsInput extends Component {
   constructor(props) {
     super(props);
 

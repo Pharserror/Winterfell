@@ -6401,6 +6401,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var selectr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(selectr__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -6434,7 +6436,9 @@ function (_Component) {
   _createClass(Autocomplete, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(selectr__WEBPACK_IMPORTED_MODULE_1___default.a, this.props);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(selectr__WEBPACK_IMPORTED_MODULE_1___default.a, _extends({
+        onSelectOption: this.props.onChange
+      }, this.props));
     }
   }]);
 
@@ -8423,7 +8427,7 @@ function (_Component) {
 
 
 ;
-CheckboxInput.defaultProps = _objectSpread({}, _props__WEBPACK_IMPORTED_MODULE_1__["default"], {
+CheckboxInput.defaultProps = _objectSpread({}, _props__WEBPACK_IMPORTED_MODULE_1__["defaults"], {
   boolean: false,
   defaultChecked: false,
   text: ''
@@ -8934,6 +8938,7 @@ PasswordInput.defaultProps = _props__WEBPACK_IMPORTED_MODULE_3__["extendedProps"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RadioOptionsInput; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(172);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _props__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(180);
@@ -8964,8 +8969,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 var RadioOptionsInput =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(RadioOptionsInput, _React$Component);
+function (_Component) {
+  _inherits(RadioOptionsInput, _Component);
 
   function RadioOptionsInput(props) {
     var _this;
@@ -9022,7 +9027,8 @@ function (_React$Component) {
   }]);
 
   return RadioOptionsInput;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
 
 ;
 RadioOptionsInput.defaultProps = _objectSpread({}, _props__WEBPACK_IMPORTED_MODULE_1__["defaults"], {
