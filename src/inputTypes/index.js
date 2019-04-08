@@ -1,6 +1,7 @@
 import isObject             from 'lodash/isObject';
 import isString             from 'lodash/isString';
 import React, { Component } from 'react';
+import Autocomplete         from './Autocomplete';
 import checkboxInput        from './checkboxInput';
 import checkboxOptionsInput from './checkboxOptionsInput';
 import emailInput           from './emailInput';
@@ -13,6 +14,7 @@ import textareaInput        from './textareaInput';
 import textInput            from './textInput'
 
 const inputTypes = {
+  Autocomplete,
   checkboxInput,
   checkboxOptionsInput,
   emailInput,
