@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import defaults             from './props';
+import { defaults }         from './props';
 
 export default class CheckboxInput extends Component {
   constructor(props) {

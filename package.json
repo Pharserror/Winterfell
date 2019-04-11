@@ -1,6 +1,6 @@
 {
   "name": "winterfell",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Generate complex, validated and extendable JSON-based forms in React",
   "main": "dist/winterfell.js",
   "keywords": [
@@ -25,10 +25,12 @@
   "license": "MIT",
   "peerDependencies": {
     "lodash": "4.17.10",
+    "prop-types": "15.6.2",
     "react": "16.5.2",
     "react-dom": "16.5.2"
   },
   "dependencies": {
+    "selectr": "git+https://github.com/Pharserror/selectr.git#master",
     "keycodez": "^1.0.0",
     "validator": "^4.0.5"
   },

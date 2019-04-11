@@ -14,6 +14,7 @@ module.exports = {
   },
   externals : {
     'lodash': 'umd lodash',
+    'prop-types': 'umd prop-types',
     'react': 'umd react'
   },
   output: {
@@ -23,6 +24,6 @@ module.exports = {
     path: __dirname + '/dist'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.jsx']
   }
 };
