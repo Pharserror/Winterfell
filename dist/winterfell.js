@@ -138,11 +138,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -167,10 +167,10 @@ function (_Component) {
     _classCallCheck(this, Winterfell);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Winterfell).call(this, props));
-    _this.handleAnswerChange = _this.handleAnswerChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleBackButtonClick = _this.handleBackButtonClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleSwitchPanel = _this.handleSwitchPanel.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleAnswerChange = _this.handleAnswerChange.bind(_assertThisInitialized(_this));
+    _this.handleBackButtonClick = _this.handleBackButtonClick.bind(_assertThisInitialized(_this));
+    _this.handleSwitchPanel = _this.handleSwitchPanel.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.formComponent = null;
     _this.panelHistory = [];
     var schema = lodash_extend__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -7147,11 +7147,7 @@ function (_Component) {
             this.setState({
               currentUserInput: event.target.value,
               page: 1
-            }, this.filterOptions.bind(this, event));
-
-            if (!!this.props.onChange) {
-              this.props.onChange(event.target.value);
-            }
+            }, this.filterOptions.bind(this, event), this.props.onChange(event, event.target.value));
           }
         }, {
           key: "onEnterTab",
@@ -7540,8 +7536,7 @@ function (_Component) {
               _this8.refs.selectrInput.focus();
 
               _this8.filterOptions(undefined, _this8.state.currentUserInput);
-            });
-            this.props.onSelectOption(option);
+            }, this.props.onSelectOption(option));
           }
         }, {
           key: "submitSelection",
@@ -7625,6 +7620,12 @@ function (_Component) {
         multiple: false,
         noMoreOptionsNotice: 'No more options available',
         noMoreOptionsListItemClasses: '',
+        onChange: function onChange() {
+          return false;
+        },
+        onSelectOption: function onSelectOption() {
+          return false;
+        },
         options: [],
         optionsListItemClass: 'list-item',
         pageSize: 10,
@@ -7674,7 +7675,7 @@ function (_Component) {
       exports = module.exports = __webpack_require__(4)(false); // imports
       // module
 
-      exports.push([module.i, ".gmail-select .invisible-screen {\n  display: none; }\n  .gmail-select .invisible-screen.active {\n    background: transparent;\n    display: block;\n    position: fixed;\n    z-index: 9997; }\n\n.gmail-select .options-list-container ul {\n  background-attachment: initial;\n  background-color: #FFF;\n  background-image: none;\n  background-position: initial;\n  background-repeat: initial;\n  display: none;\n  margin: 0 0 0 0;\n  max-height: 300px;\n  overflow-y: scroll;\n  padding: 0 0 0 0;\n  position: absolute;\n  z-index: 9998; }\n  .gmail-select .options-list-container ul.active {\n    border-bottom: 1px solid #CCC;\n    border-bottom-left-radius: 4px;\n    border-bottom-right-radius: 4px;\n    border-left: 1px solid #CCC;\n    border-right: 1px solid #CCC;\n    border-top: none;\n    display: block; }\n  .gmail-select .options-list-container ul li {\n    padding: 10px 0 10px 10px; }\n    .gmail-select .options-list-container ul li.active, .gmail-select .options-list-container ul li:hover {\n      background-color: LightBlue; }\n    .gmail-select .options-list-container ul li.ajax-spinner-list-item, .gmail-select .options-list-container ul li.list-item-option-group, .gmail-select .options-list-container ul li.no-more-options-list-item {\n      text-align: left; }\n      .gmail-select .options-list-container ul li.ajax-spinner-list-item:hover, .gmail-select .options-list-container ul li.list-item-option-group:hover, .gmail-select .options-list-container ul li.no-more-options-list-item:hover {\n        background-color: transparent; }\n    .gmail-select .options-list-container ul li .ajax-spinner {\n      height: 20px;\n      width: 20px; }\n\n.gmail-select .input-container ul, .gmail-select .options-list-container ul {\n  list-style: none;\n  padding-left: 0; }\n\n.gmail-select .input-container {\n  background-color: #FFF;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-color: #CCC;\n  border-style: solid;\n  border-width: 1px; }\n  .gmail-select .input-container.active {\n    border-bottom-left-radius: 0px;\n    border-bottom-right-radius: 0px;\n    position: relative;\n    z-index: 9999; }\n  .gmail-select .input-container input {\n    border: none;\n    outline: none;\n    width: 333px; }\n  .gmail-select .input-container ul {\n    margin: 0 0 5px 10px; }\n    .gmail-select .input-container ul li {\n      background-attachment: initial;\n      background-color: #CCC;\n      background-image: none;\n      background-position: initial;\n      background-repeat: initial;\n      border-bottom-left-radius: 4px;\n      border-bottom-right-radius: 4px;\n      border-top-left-radius: 4px;\n      border-top-right-radius: 4px;\n      border-color: #AAA;\n      border-style: solid;\n      border-width: 1px;\n      display: inline-block;\n      margin-right: 10px;\n      margin-top: 5px;\n      padding-right: 10px; }\n      .gmail-select .input-container ul li:last-child {\n        background-color: transparent;\n        border: none;\n        padding-right: 0px; }\n      .gmail-select .input-container ul li .close-icon {\n        border-right: 1px solid #AAA;\n        color: #AAA;\n        display: inline-block;\n        height: 20px;\n        margin-right: 10px;\n        text-align: center;\n        text-decoration: none;\n        width: 20px; }\n        .gmail-select .input-container ul li .close-icon:hover {\n          background-color: #999; }\n      .gmail-select .input-container ul li span {\n        padding-left: 5px; }\n\n.hidden {\n  display: none; }\n", ""]); // exports
+      exports.push([module.i, ".gmail-select .invisible-screen {\n  display: none; }\n  .gmail-select .invisible-screen.active {\n    background: transparent;\n    display: block;\n    position: fixed;\n    z-index: 9997; }\n\n.gmail-select .options-list-container ul {\n  background-attachment: initial;\n  background-color: #FFF;\n  background-image: none;\n  background-position: initial;\n  background-repeat: initial;\n  display: none;\n  margin: 0 0 0 0;\n  max-height: 300px;\n  overflow-y: scroll;\n  padding: 0 0 0 0;\n  position: absolute;\n  z-index: 9998; }\n  .gmail-select .options-list-container ul.active {\n    border-bottom: 1px solid #CCC;\n    border-bottom-left-radius: 4px;\n    border-bottom-right-radius: 4px;\n    border-left: 1px solid #CCC;\n    border-right: 1px solid #CCC;\n    border-top: none;\n    display: block; }\n  .gmail-select .options-list-container ul li {\n    padding: 10px 0 10px 10px; }\n    .gmail-select .options-list-container ul li.active, .gmail-select .options-list-container ul li:hover {\n      background-color: LightBlue; }\n    .gmail-select .options-list-container ul li.ajax-spinner-list-item, .gmail-select .options-list-container ul li.list-item-option-group, .gmail-select .options-list-container ul li.no-more-options-list-item {\n      text-align: left; }\n      .gmail-select .options-list-container ul li.ajax-spinner-list-item:hover, .gmail-select .options-list-container ul li.list-item-option-group:hover, .gmail-select .options-list-container ul li.no-more-options-list-item:hover {\n        background-color: transparent; }\n    .gmail-select .options-list-container ul li .ajax-spinner {\n      height: 20px;\n      width: 20px; }\n\n.gmail-select .input-container ul, .gmail-select .options-list-container ul {\n  list-style: none;\n  padding-left: 0; }\n\n.gmail-select .input-container {\n  background-color: #FFF;\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-color: #CCC;\n  border-style: solid;\n  border-width: 1px; }\n  .gmail-select .input-container.active {\n    border-bottom-left-radius: 0px;\n    border-bottom-right-radius: 0px;\n    position: relative;\n    z-index: 9999; }\n  .gmail-select .input-container input {\n    border: none;\n    outline: none;\n    max-width: 333px; }\n  .gmail-select .input-container ul {\n    margin: 0 0 5px 10px; }\n    .gmail-select .input-container ul li {\n      background-attachment: initial;\n      background-color: #CCC;\n      background-image: none;\n      background-position: initial;\n      background-repeat: initial;\n      border-bottom-left-radius: 4px;\n      border-bottom-right-radius: 4px;\n      border-top-left-radius: 4px;\n      border-top-right-radius: 4px;\n      border-color: #AAA;\n      border-style: solid;\n      border-width: 1px;\n      display: inline-block;\n      margin-right: 10px;\n      margin-top: 5px;\n      padding-right: 10px; }\n      .gmail-select .input-container ul li:last-child {\n        background-color: transparent;\n        border: none;\n        padding-right: 0px; }\n      .gmail-select .input-container ul li .close-icon {\n        border-right: 1px solid #AAA;\n        color: #AAA;\n        display: inline-block;\n        height: 20px;\n        margin-right: 10px;\n        text-align: center;\n        text-decoration: none;\n        width: 20px; }\n        .gmail-select .input-container ul li .close-icon:hover {\n          background-color: #999; }\n      .gmail-select .input-container ul li span {\n        padding-left: 5px; }\n\n.hidden {\n  display: none; }\n", ""]); // exports
 
       /***/
     },
@@ -8338,11 +8339,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -8358,9 +8359,9 @@ function (_Component) {
     _classCallCheck(this, CheckboxInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CheckboxInput).call(this, props));
-    _this.getValue = _this.getValue.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getValue = _this.getValue.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_this));
     _this.state = {
       checked: props.defaultChecked
     };
@@ -8668,11 +8669,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -8689,8 +8690,8 @@ function (_Component) {
     _classCallCheck(this, BaseInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(BaseInput).call(this, props));
-    _this.handleChange = _actions__WEBPACK_IMPORTED_MODULE_1__["handleChange"].bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _actions__WEBPACK_IMPORTED_MODULE_1__["onBlur"].bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _actions__WEBPACK_IMPORTED_MODULE_1__["handleChange"].bind(_assertThisInitialized(_this));
+    _this.onBlur = _actions__WEBPACK_IMPORTED_MODULE_1__["onBlur"].bind(_assertThisInitialized(_this));
     _this.state = {
       value: _this.props.value
     };
@@ -8958,11 +8959,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -8978,7 +8979,7 @@ function (_Component) {
     _classCallCheck(this, RadioOptionsInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RadioOptionsInput).call(this, props));
-    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_this));
     _this.state = {
       value: _this.props.value
     };
@@ -9062,11 +9063,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -9083,9 +9084,9 @@ function (_Component) {
     _classCallCheck(this, SelectInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectInput).call(this, props));
-    _this.handleChange = _actions__WEBPACK_IMPORTED_MODULE_1__["handleChange"].bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _actions__WEBPACK_IMPORTED_MODULE_1__["onBlur"].bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.options = _this.options.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _actions__WEBPACK_IMPORTED_MODULE_1__["handleChange"].bind(_assertThisInitialized(_this));
+    _this.onBlur = _actions__WEBPACK_IMPORTED_MODULE_1__["onBlur"].bind(_assertThisInitialized(_this));
+    _this.options = _this.options.bind(_assertThisInitialized(_this));
     _this.state = {
       value: _this.props.value
     };
@@ -9153,11 +9154,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -9174,8 +9175,8 @@ function (_Component) {
     _classCallCheck(this, TextareaInput);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TextareaInput).call(this, props));
-    _this.handleChange = _actions__WEBPACK_IMPORTED_MODULE_1__["handleChange"].bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onBlur = _actions__WEBPACK_IMPORTED_MODULE_1__["onBlur"].bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _actions__WEBPACK_IMPORTED_MODULE_1__["handleChange"].bind(_assertThisInitialized(_this));
+    _this.onBlur = _actions__WEBPACK_IMPORTED_MODULE_1__["onBlur"].bind(_assertThisInitialized(_this));
     _this.state = {
       value: _this.props.value
     };
@@ -9314,11 +9315,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -9345,11 +9346,11 @@ function (_Component) {
     _classCallCheck(this, QuestionPanel);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(QuestionPanel).call(this, props));
-    _this.handleAnswerChange = _this.handleAnswerChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleBackButtonClick = _this.handleBackButtonClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleMainButtonClick = _this.handleMainButtonClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleQuestionBlur = _this.handleQuestionBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.questionSets = _this.questionSets.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleAnswerChange = _this.handleAnswerChange.bind(_assertThisInitialized(_this));
+    _this.handleBackButtonClick = _this.handleBackButtonClick.bind(_assertThisInitialized(_this));
+    _this.handleMainButtonClick = _this.handleMainButtonClick.bind(_assertThisInitialized(_this));
+    _this.handleQuestionBlur = _this.handleQuestionBlur.bind(_assertThisInitialized(_this));
+    _this.questionSets = _this.questionSets.bind(_assertThisInitialized(_this));
     _this.state = {
       validationErrors: _this.props.validationErrors
     };
@@ -10030,11 +10031,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -10049,7 +10050,7 @@ function (_Component) {
     _classCallCheck(this, Button);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Button).call(this, props));
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -11891,11 +11892,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -11912,7 +11913,7 @@ function (_Component) {
     _classCallCheck(this, QuestionSet);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(QuestionSet).call(this, props));
-    _this.questions = _this.questions.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.questions = _this.questions.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -12012,11 +12013,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -12036,8 +12037,8 @@ function (_Component) {
     _classCallCheck(this, Question);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Question).call(this, props));
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_assertThisInitialized(_this)), _this.props.questionId);
-    _this.handleInputBlur = _this.handleInputBlur.bind(_assertThisInitialized(_assertThisInitialized(_this)), _this.props.questionId);
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this), _this.props.questionId);
+    _this.handleInputBlur = _this.handleInputBlur.bind(_assertThisInitialized(_this), _this.props.questionId);
     return _this;
   }
 
