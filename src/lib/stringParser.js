@@ -1,18 +1,19 @@
-module.exports = (template, params) => {
+import isUndefined from 'lodash/isUndefined';
+
+export default function stringParser(template, params) {
   template = template || '';
-  params   = params || {};
+  params = params || {};
 
   /*
    * Split up template in to array of characters
    */
-  var characters = template.split('');
+  let buffer = '';
+  let collecting = false;
+  const characters = template.split('');
+  const parsedTemplate = '';
 
-  var buffer         = '';
-  var parsedTemplate = '';
-  var collecting     = false;
-
-  for (var i = 0; i < characters.length; i++) {
-    var currentChar = characters[i];
+  for (let i = 0; i < characters.length; i++) {
+    let currentChar = characters[i];
 
     /*
      * If we're not collecting and we're not
@@ -20,10 +21,9 @@ module.exports = (template, params) => {
      * append the charater to the
      * parsedTemplate and move on
      */
-    if (!collecting
-        && currentChar != '{'
-        && currentChar != '}') {
+    if (!collecting && currentChar != '{' && currentChar != '}') {
       parsedTemplate += currentChar;
+
       continue;
     }
 
@@ -40,8 +40,7 @@ module.exports = (template, params) => {
      * we're not a brace of any sort then add
      * the character to the buffer
      */
-    if (currentChar != '{'
-        && currentChar != '}') {
+    if (currentChar != '{' && currentChar != '}') {
       buffer += currentChar;
     }
 
@@ -51,14 +50,14 @@ module.exports = (template, params) => {
      * buffers name from the params object
      * and add it to the parsedTemplate
      */
-    if (currentChar == '}') {
-      var value = '';
-      if (typeof params[buffer] !== 'undefined') {
+    if (currentChar === '}') {
+      let value = '';
+
+      if (!isUndefined(params[buffer])) {
         value = params[buffer];
       }
 
       parsedTemplate += value;
-
       /*
        * Stop collecting and reset
        * the buffer to nothing

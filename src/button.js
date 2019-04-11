@@ -1,29 +1,28 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-class Button extends React.Component {
+export default class Button extends Component {
+  constructor(props) {
+    super(props);
 
-  handleClick(e) {
-    e.preventDefault();
+    this.handleClick = this.handleClick.bind(this);
+  }
 
+  handleClick(event) {
+    event.preventDefault();
     this.props.onClick();
   }
 
   render() {
     return (
-      <button href="#"
-         className={this.props.className}
-         onClick={this.handleClick.bind(this)}>
+      <button className={this.props.className} onClick={this.handleClick}>
         {this.props.text}
       </button>
     );
   }
-
 };
 
 Button.defaultProps = {
-  text      : 'Submit',
-  className : undefined,
-  onClick   : () => {}
+  className: undefined,
+  onClick:   () => {},
+  text:      'Submit'
 };
-
-module.exports = Button;

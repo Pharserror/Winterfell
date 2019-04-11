@@ -1,43 +1,10 @@
-var React = require('react');
+import React, { Component } from 'react';
+import * as actions         from './actions';
+import BaseInput            from './BaseInput';
+import { defaults }         from './props';
 
-class FileInput extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value : this.props.value
-    };
-  }
-
-  handleChange(e) {
-    this.setState({
-      value : e.target.value
-    }, this.props.onChange.bind(null, e.target.value));
-  }
-
-  render() {
-    return <input type="file"
-                  name={this.props.name}
-                  id={this.props.id}
-                  aria-labelledby={this.props.labelId}
-                  className={this.props.classes.file}
-                  required={this.props.required
-                              ? 'required'
-                              : undefined}
-                  onChange={this.handleChange.bind(this)}
-                  onBlur={this.props.onBlur.bind(null, this.state.value)} />
-  }
-
+export default class FileInput extends Component {
+  render() { return ( <BaseInput type="file" {...this.props} /> ); }
 };
 
-FileInput.defaultProps = {
-  classes   : {},
-  name      : '',
-  id        : '',
-  value     : '',
-  onChange  : () => {},
-  onBlur    : () => {}
-};
-
-module.exports = FileInput;
+FileInput.defaultProps = defaults;

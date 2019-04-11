@@ -1,50 +1,10 @@
-var React = require('react');
+import React, { Component } from 'react';
+import * as actions         from './actions';
+import BaseInput            from './BaseInput';
+import { extendedProps }    from './props';
 
-class PasswordInput extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value : this.props.value
-    };
-  }
-
-  handleChange(e) {
-    this.setState({
-      value : e.target.value
-    }, this.props.onChange.bind(null, e.target.value));
-  }
-
-  render() {
-    return (
-      <input type="password"
-             name={this.props.name}
-             id={this.props.id}
-             aria-labelledby={this.props.labelId}
-             className={this.props.classes.input}
-             placeholder={this.props.placeholder}
-             value={this.state.value}
-             required={this.props.required
-                         ? 'required'
-                         : undefined}
-             onChange={this.handleChange.bind(this)}
-             onBlur={this.props.onBlur.bind(null, this.state.value)}
-             onKeyDown={this.props.onKeyDown} />
-    );
-  }
-
+export default class PasswordInput extends Component {
+  render() { return ( <BaseInput type="password" {...this.props} /> ); }
 };
 
-PasswordInput.defaultProps = {
-  classes     : {},
-  name        : '',
-  id          : '',
-  value       : '',
-  placeholder : '',
-  onChange    : () => {},
-  onBlur      : () => {},
-  onKeyDown   : () => {}
-};
-
-module.exports = PasswordInput;
+PasswordInput.defaultProps = extendedProps;

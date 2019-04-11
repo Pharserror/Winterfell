@@ -1,94 +1,102 @@
-var React    = require('react');
-var _        = require('lodash').noConflict();
-var KeyCodez = require('keycodez');
+import cloneDeep            from 'lodash/cloneDeep';
+import filter               from 'lodash/filter';
+import find                 from 'lodash/find';
+import isEmpty              from 'lodash/isEmpty';
+import isUndefined          from 'lodash/isUndefined';
+import mapValues            from 'lodash/mapValues';
+import set                  from 'lodash/set';
+import React, { Component } from 'react';
+import KeyCodez             from 'keycodez';
+import Button               from './button';
+import ErrorMessages        from './lib/errors';
+import Validation           from './lib/validation';
+import QuestionSet          from './questionSet';
 
-var Validation    = require('./lib/validation');
-var ErrorMessages = require('./lib/errors');
-
-var Button      = require('./button');
-var QuestionSet = require('./questionSet');
-
-class QuestionPanel extends React.Component {
-
+export default class QuestionPanel extends Component {
   constructor(props) {
     super(props);
 
+    this.handleAnswerChange = this.handleAnswerChange.bind(this);
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    this.handleMainButtonClick = this.handleMainButtonClick.bind(this);
+    this.handleQuestionBlur = this.handleQuestionBlur.bind(this);
+    this.questionSets = this.questionSets.bind(this);
     this.state = {
       validationErrors : this.props.validationErrors
     };
   }
 
   handleAnswerValidate(questionId, questionAnswer, validations) {
-    if (typeof validations === 'undefined'
-         || validations.length === 0) {
-      return;
-    }
-
+    if (isUndefined(validations) || isEmpty(validations)) { return; }
     /*
      * Run the question through its validations and
      * show any error messages if invalid.
      */
-    var questionValidationErrors = [];
+    const questionValidationErrors = [];
+
     validations
-      .forEach(validation => {
-        if (Validation.validateAnswer(questionAnswer,
-                                      validation,
-                                      this.props.questionAnswers)) {
-          return;
-        }
+    .forEach(validation => {
+      if (
+        Validation.validateAnswer(
+          questionAnswer,
+          validation,
+          this.props.questionAnswers
+        )
+      ) { return; }
 
-        questionValidationErrors.push({
-          type    : validation.type,
-          message : ErrorMessages.getErrorMessage(validation)
-        });
+      questionValidationErrors.push({
+        type:    validation.type,
+        message: ErrorMessages.getErrorMessage(validation)
       });
-
-    var validationErrors = _.chain(this.state.validationErrors)
-                            .set(questionId, questionValidationErrors)
-                            .value();
-
-    this.setState({
-      validationErrors : validationErrors
     });
+
+    const validationErrors = set(
+      cloneDeep(this.state.validationErrors),
+      questionId,
+      questionValidationErrors
+    );
+
+    this.setState({ validationErrors });
   }
 
   handleMainButtonClick() {
-    var action     = this.props.action.default;
-    var conditions = this.props.action.conditions || [];
+    let action = this.props.action.default;
+    const conditions = this.props.action.conditions || [];
 
     /*
      * We need to get all the question sets for this panel.
      * Collate a list of the question set IDs required
      * and run through the schema to grab the question sets.
      */
-    var questionSetIds = this.props.questionSets.map(qS => qS.questionSetId);
-    var questionSets   = _.chain(this.props.schema.questionSets)
-                          .filter(qS => questionSetIds.indexOf(qS.questionSetId) > -1)
-                          .value();
+    const questionSetIds = this.props.questionSets.map(
+      questionSet => questionSet.questionSetId
+    );
+
+    const questionSets = filter(
+      this.props.schema.questionSets,
+      questionSet => questionSetIds.indexOf(questionSet.questionSetId) > -1
+    );
 
     /*
      * Get any incorrect fields that need error messages.
      */
-    var invalidQuestions = Validation.getQuestionPanelInvalidQuestions(
-      questionSets, this.props.questionAnswers
+    const invalidQuestions = Validation.getQuestionPanelInvalidQuestions(
+      questionSets,
+      this.props.questionAnswers
     );
 
     /*
      * If the panel isn't valid...
      */
-    if (Object.keys(invalidQuestions).length > 0) {
-      var validationErrors = _.mapValues(invalidQuestions, validations => {
-        return validations.map(validation => {
-          return {
-            type    : validation.type,
-            message : ErrorMessages.getErrorMessage(validation)
-          };
-        })
-      });
+    if (!isEmpty(Object.keys(invalidQuestions))) {
+      const validationErrors = mapValues(invalidQuestions, validations => (
+        validations.map(validation => ({
+          type:    validation.type,
+          message: ErrorMessages.getErrorMessage(validation)
+        }))
+      ));
 
-      this.setState({
-        validationErrors : validationErrors
-      });
+      this.setState({ validationErrors });
       return;
     }
 
@@ -96,39 +104,38 @@ class QuestionPanel extends React.Component {
      * Panel is valid. So what do we do next?
      * Check our conditions and act upon them, or the default.
      */
-    conditions
-      .forEach(condition => {
-        var answer = this.props.questionAnswers[condition.questionId];
-
-        action = answer == condition.value
-                   ? {
-                       action : condition.action,
-                       target : condition.target
-                     }
-                   : action;
-      });
+    conditions.forEach(condition => {
+      const answer = this.props.questionAnswers[condition.questionId];
+      action = (
+        answer == condition.value
+        ? {
+          action : condition.action,
+          target : condition.target
+        } : action
+      );
+    });
 
     /*
      * Decide which action to take depending on
      * the action decided upon.
      */
     switch (action.action) {
-
-      case 'GOTO':
+      case 'GOTO': {
         this.props.onSwitchPanel(action.target);
         break;
-
-      case 'SUBMIT':
+      }
+      case 'SUBMIT': {
         this.props.onSubmit(action.target);
         break;
+      }
+      default: {
+        break;
+      }
     }
   }
 
-  handleBackButtonClick() {
-    if (this.props.panelHistory.length == 0) {
-      return;
-    }
-
+  handleBackButtonClick(_event) {
+    if (isEmpty(this.props.panelHistory)) { return; }
     this.props.onPanelBack();
   }
 
@@ -136,9 +143,7 @@ class QuestionPanel extends React.Component {
     this.props.onAnswerChange(questionId, questionAnswer);
 
     this.setState({
-      validationErrors : _.chain(this.state.validationErrors)
-                          .set(questionId, [])
-                          .value()
+      validationErrors: set(cloneDeep(this.state.validationErrors), questionId, [])
     });
 
     if (validateOn === 'change') {
@@ -152,116 +157,121 @@ class QuestionPanel extends React.Component {
     }
   }
 
-  handleInputKeyDown(e) {
-    if (KeyCodez[e.keyCode] === 'enter') {
-      e.preventDefault();
-      this.handleMainButtonClick.call(this);
+  handleInputKeyDown(event) {
+    if (KeyCodez[event.keyCode] === 'enter') {
+      event.preventDefault();
+      this.handleMainButtonClick();
     }
   }
 
+  questionSets() {
+    return (
+      this.props.questionSets.map(questionSetMeta => {
+        const questionSet = find(
+          this.props.schema.questionSets,
+          { questionSetId : questionSetMeta.questionSetId }
+        );
+
+        if (!questionSet) { return null; }
+
+        return (
+          <QuestionSet
+            classes={this.props.classes}
+            id={questionSet.questionSetId}
+            key={questionSet.questionSetId}
+            name={questionSet.name}
+            onAnswerChange={this.handleAnswerChange}
+            onKeyDown={this.handleInputKeyDown.bind(this)}
+            onQuestionBlur={this.handleQuestionBlur}
+            questionAnswers={this.props.questionAnswers}
+            questions={questionSet.questions}
+            questionSetHeader={questionSet.questionSetHeader}
+            questionSetText={questionSet.questionSetText}
+            renderError={this.props.renderError}
+            renderRequiredAsterisk={this.props.renderRequiredAsterisk}
+            validationErrors={this.state.validationErrors}
+          />
+        );
+      })
+    );
+  }
+
   render() {
-    var questionSets = this.props.questionSets.map(questionSetMeta => {
-      var questionSet = _.find(this.props.schema.questionSets, {
-        questionSetId : questionSetMeta.questionSetId
-      });
-
-      if (!questionSet) {
-        return undefined;
-      }
-
-      return (
-        <QuestionSet key={questionSet.questionSetId}
-                     id={questionSet.questionSetId}
-                     name={questionSet.name}
-                     questionSetHeader={questionSet.questionSetHeader}
-                     questionSetText={questionSet.questionSetText}
-                     questions={questionSet.questions}
-                     classes={this.props.classes}
-                     questionAnswers={this.props.questionAnswers}
-                     renderError={this.props.renderError}
-                     renderRequiredAsterisk={this.props.renderRequiredAsterisk}
-                     validationErrors={this.state.validationErrors}
-                     onAnswerChange={this.handleAnswerChange.bind(this)}
-                     onQuestionBlur={this.handleQuestionBlur.bind(this)}
-                     onKeyDown={this.handleInputKeyDown.bind(this)} />
-      );
-    });
-
     return (
       <div className={this.props.classes.questionPanel}>
-        {typeof this.props.panelHeader !== 'undefined'
-          || typeof this.props.panelText !== 'undefined'
+        {
+          !isUndefined(this.props.panelHeader) || !isUndefined(this.props.panelText)
           ? (
-              <div className={this.props.classes.questionPanelHeaderContainer}>
-                {typeof this.props.panelHeader !== 'undefined'
-                  ? (
-                      <h3 className={this.props.classes.questionPanelHeaderText}>
-                        {this.props.panelHeader}
-                      </h3>
-                    )
-                  : undefined}
-                {typeof this.props.panelText !== 'undefined'
-                  ? (
-                      <p className={this.props.classes.questionPanelText}>
-                        {this.props.panelText}
-                      </p>
-                    )
-                  : undefined}
-              </div>
-            )
-          : undefined}
+            <div className={this.props.classes.questionPanelHeaderContainer}>
+              {
+                !isUndefined(this.props.panelHeader)
+                ? (
+                  <h3 className={this.props.classes.questionPanelHeaderText}>
+                    {this.props.panelHeader}
+                  </h3>
+                ) : null
+              }
+              {
+                !isUndefined(this.props.panelText)
+                ? (
+                  <p className={this.props.classes.questionPanelText}>
+                    {this.props.panelText}
+                  </p>
+                ) : null
+              }
+            </div>
+          ) : null
+        }
         <div className={this.props.classes.questionSets}>
-          {questionSets}
+          {this.questionSets()}
         </div>
         <div className={this.props.classes.buttonBar}>
-          {this.props.panelHistory.length > 1
-            && !this.props.backButton.disabled
+          {
+            (this.props.panelHistory.length > 1 && !this.props.backButton.disabled)
             ? (
-                <Button text={this.props.backButton.text || 'Back'}
-                        onClick={this.handleBackButtonClick.bind(this)}
-                        className={this.props.classes.backButton} />
-              )
-            : undefined}
-          {!this.props.button.disabled
+              <Button
+                text={this.props.backButton.text || 'Back'}
+                onClick={this.handleBackButtonClick}
+                className={this.props.classes.backButton}
+              />
+            ) : null
+          }
+          {
+            !this.props.button.disabled
             ? (
-                <Button text={this.props.button.text}
-                        onClick={this.handleMainButtonClick.bind(this)}
-                        className={this.props.classes.controlButton} />
-              )
-            : undefined}
+              <Button
+                text={this.props.button.text}
+                onClick={this.handleMainButtonClick}
+                className={this.props.classes.controlButton}
+              />
+            ) : null
+          }
         </div>
       </div>
     );
   }
-
 };
 
 QuestionPanel.defaultProps = {
-  validationErrors       : {},
-  schema                 : {},
-  classes                : {},
-  panelId                : undefined,
-  panelIndex             : undefined,
-  panelHeader            : undefined,
-  panelText              : undefined,
-  action                 : {
-    default    : {},
-    conditions : []
+  action: {
+    default:    {},
+    conditions: []
   },
-  button                 : {
-    text : 'Submit'
-  },
-  backButton             : {
-    text : 'Back'
-  },
-  questionSets           : [],
-  questionAnswers        : {},
-  renderError            : undefined,
-  renderRequiredAsterisk : undefined,
-  onAnswerChange         : () => {},
-  onSwitchPanel          : () => {},
-  onPanelBack            : () => {},
-  panelHistory           : [],
+  backButton:             { text: 'Back' },
+  button:                 { text: 'Submit' },
+  classes:                {},
+  panelHeader:            undefined,
+  panelId:                undefined,
+  panelIndex:             undefined,
+  panelText:              undefined,
+  questionAnswers:        {},
+  questionSets:           [],
+  renderError:            undefined,
+  renderRequiredAsterisk: undefined,
+  onAnswerChange:         () => {},
+  onPanelBack:            () => {},
+  onSwitchPanel:          () => {},
+  panelHistory:           [],
+  schema:                 {},
+  validationErrors:       {}
 };
-
-module.exports = QuestionPanel;
